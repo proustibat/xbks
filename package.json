@@ -57,7 +57,8 @@
         "lint:js": "eslint . --ext .js -c .eslintrc.js --fix",
         "lint:scss": "scss-lint --config .scss-lint.yml",
         "lint:stylelint": "./node_modules/.bin/stylelint 'src/**/*.scss' --color --fix",
-        "lint:all": "npm run lint:stylelint && npm run lint:js && npm run lint:scss"
+        "lint:all": "npm run lint:stylelint && npm run lint:js && npm run lint:scss",
+        "codeclimate:analyze": "codeclimate analyze --dev -f html > codeclimate-out.html src && open codeclimate-out.html"
     },
     "config": {
         "commitizen": {
