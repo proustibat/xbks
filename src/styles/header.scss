@@ -1,0 +1,36 @@
+$headband-height: 5rem;
+
+.header {
+  background: $color-headband;
+  display: flex;
+  flex-direction: column;
+  height: $headband-height;
+  justify-content: space-between;
+  padding: 1rem 0;
+
+  .title {
+    border-bottom: 1px solid $color-light;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 1rem;
+    text-align: center;
+  }
+
+  .menu {
+    display: flex;
+    font-size: .8rem;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: $color-dark;
+    text-decoration: none;
+  }
+
+  .is-active {
+    border-bottom: 2px solid;
+  }
+}

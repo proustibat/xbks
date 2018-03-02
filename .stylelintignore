@@ -1,0 +1,6 @@
+dist
+*.html
+.sourcemaps
+node_modules
+.scannerwork
+*.html

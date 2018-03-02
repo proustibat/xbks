@@ -1,0 +1,19 @@
+.page-app {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 900px;
+  min-height: calc(100vh - 7rem);
+  overflow: hidden;
+  padding: 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: calc(100vh - 7rem);
+    width: 100%;
+  }
+}

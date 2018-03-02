@@ -1,0 +1,12 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Built files
+coverage/
+dist/
+node_modules/
+src/js/app-info.js
+.scannerwork
