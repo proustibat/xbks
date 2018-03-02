@@ -4,6 +4,7 @@
 #    CREATE orphan branch gh-pages
 #    git checkout --orphan gh-pages
 #    rm -rf *.md *.json *xml *.sh *.properties src config resources *.yml *.travis.yml .gitignore .editorconfig .scannerwork .sourcemaps documentation node_modules platforms plugins psd www *.keystore LICENSE *.yml *.txt .*.yml
+#    rm .babelrc .eslintignore .eslintrc.js .stylelintignore .stylelintrc build.js codeclimate-out.html webpack.*.js yarn.lock
 #    touch .gitignore && nano .gitignore
 #    type '.idea'
 #    git add . && git commit -am "Initial Commit" && git push origin -u gh-pages
