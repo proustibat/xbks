@@ -13,45 +13,9 @@ plugins:
     enabled: true
   stylelint:
       enabled: true
-#      checks:
-#        CssSyntaxError:
-#          enabled: false
-#        LeadingZero:
-#          enabled: false
   scss-lint:
     enabled: true
-#    checks:
-#      LeadingZero:
-#        enabled: false
-#      EmptyRule:
-#        enabled: false
-#      NestingDepth:
-#        enabled: true
-#        max_depth: 6
-#        ignore_parent_selectors: false
-#      SelectorDepth:
-#        enabled: true
-#        max_depth: 5
-#      SelectorFormat:
-#        enable: true
-#        convention: camel_case || hyphenated_lowercase
-#      ImportantRule:
-#        enabled: false
   csslint:
     enabled: true
-#    checks:
-#      bulletproof-font-face:
-#        enabled: false
-#      universal-selector:
-#        enabled: false
   duplication:
-    enabled: true
-#    config:
-#      languages:
-#        javascript:
-#          filters:
-#          - "(TSParameterProperty ___)"
-#    exclude_patterns:
-#    - "**/*.spec.ts"
-  sonar-java:
     enabled: true
