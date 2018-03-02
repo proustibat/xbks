@@ -1,0 +1,51 @@
+dist: trusty
+env:
+  global:
+    - GITHUB_REPO: proustibat/fbrgsm.mobile.app
+    # token at https://github.com/settings/tokens/new, secure with travis encrypt -r username/repository GH_TOKEN=[the token you created before]
+    - secure: "ZMySlRKwzYmvXkh1xkIIXdHpS7k9BdAMF/vWwPjKMX8fsrTb1pGure1Jrrc5lM9IHzhsxfWbi4P6zT4FoAyvBcI1OhJU5VjyCwA/X9qP3L6wBrjrlkDkH01bpaPD5HZ3jtiNz40L3+AJwjrUsX2SfdTa2zzkQviRWp4ua8+HKQBd1Lh2K07n9jT+IeNapTWEBcDFh1rcWra9EBgvD6HRF3GksfMH0AxI0m+EdpFinOwWhHi+qXYc235/7A5kBMV8N+TVSJAEYiDdDVS2CvzBItsuy+VWMcayrrmbc/2Dmox1MasQY5GIscS/jNFFfyHHwdy1SB+2eX3zwd+HZDiKajT6QW320azOpr6MSSL7B176JTbB0S64Lr9LVcnFqPjMliEPv6gxajht0v5SkcGMhV8HmU8RdIsY4a/6bJK7+9M6QTOtHmPsThwCZiTvlxWI23ub/h6ZvUJ7EBnPh7TaJn3w0hr743n6Xn6NAL9yLyp1oaxiDJdYL2FyDBQx2B9PyJeye2ogeJm4dKl3KcLyWvp9iuh/CClkpZHU/Tv5BgmlRYHxevxS6fjVYACljYWOuCAKGLtGopgZOoUWL33Ktm+Vm75NP+EU9E2BUfnH9CfXFxp7yOO6O9HfMV6pkMeguYXeldBUKHdJqbjyFzjHLwgCCSS0naAQWFGDPI7aY1Y="
+
+language: node_js
+node_js: '8'
+cache:
+  directories:
+    - node_modules
+
+# create a user token here: https://sonarcloud.io/account/security
+# run `travis encrypt your-token-here`
+# paste secure token below
+addons:
+  sonarcloud:
+    organization: proustibat-github
+    token:
+      secure: "Ifc8RtqONTfcyU6zy3LsiXpsjbDhJ8rM8GlJ5/SN+LsAptIhdKnzugGoMqTVA7VS3bDDvf9saxVWyldkhJXfw8rwCix+o7Bq1guU2xFVyy1Zx+xtLChWmEJnncHU6pqPuQkSx8b/EVfKHsnQhqMYdliEixmadqrroZ7MsxiE5MMd3TLypoAHVxMAeGzweW4hgSaXzBX3c2AuBDOOGcWWVIk4AkgBHbhNLqhsdtd4eAP+UAjzcDPrO/xa+MRqitaGf0PQknVzHkoriOIbWivQEoBY0KHHImuAodYMdZtdDdFiOWNsC9XhHXY0SDiJCSsYbCrhLMqeBaoW+WFGYAt9c591kGImM/X09IptOGOY3kOIrRgFvBfQ95waY0nERxHoI1BUtI0X+li67rVp7/3d96xXThZdNoLyLGuwhqOjYO5NctBs+cbJuW2CxvTAdV/o/PeTMywULCpygXj70s6tA67Uo1ZAkMEU3ZxqFliv/yokwT9qnLCf4AiwzjreCTQGJzqHVhsf0tQBZZdO5owj8f8cVhD0MTb48eZr818yoYForXGHwt3tN9ZcrSKhXEXR2yiiKNNul+cLZCDyfhebTdigR6QW74WGECzPNz3+Gk+4eFSgYdygKAr5NyMpFiae6cOXoXBcxuoHEokihfywbBFXTWIBC/4UF2ghhWJn4FY="
+
+install:
+- yarn install
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+#   Using xvfb to Run Tests That Require a GUI
+#  - sleep 3 # give xvfb some time to start
+#  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+#  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+#  - export DISPLAY=:99.0
+#  - sh -e /etc/init.d/xvfb start
+#  - ./cc-test-reporter before-build
+
+script:
+  - yarn lint:all
+  - yarn build
+
+# Here we want to check out where we are.
+# We only want to update Github Pages if we're building
+# the master branch of the original repository, so we
+# have to check $TRAVIS_PULL_REQUEST and $TRAVIS_BRANCH.
+# If we are here, we run bash deploy.sh
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash sonar.sh; fi
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash deploy.sh; fi
+
+# after_script:
+#   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
