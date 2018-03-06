@@ -1,14 +1,18 @@
 // vendors
 @import '~reset-css/reset.css';
 @import 'material-icon';
-@import '~materialize-css/dist/css/materialize.css';
+
+// Materialize
+@import "~materialize-css/sass/components/color"; // color should be imported before custom variables
+@import 'variables'; // overriden materialize variables
+@import '~materialize-css/sass/materialize';
 
 // App core
-@import 'theme-colors';
-@import 'variables';
-@import 'mixins';
 @import 'layout';
 @import 'pages/page-home';
 @import 'pages/page-dashboard';
 @import 'shame';
+
+// components
+@import 'components/bookslist';
 

@@ -1,6 +1,6 @@
-// *******************************
-//  LAYOUT
-// *******************************
+//// *******************************
+////  LAYOUT
+//// *******************************
 html {
   box-sizing: border-box;
 }
@@ -15,51 +15,13 @@ body {
   font-family: $theme-font;
 }
 
-// Only necessary for window height sized blocks.
-html,
-body,
-.block {
-  height: 100%;
-}
-
-.main-loader {
-  &.progress {
-    background-color: $color-darker;
-
-    .indeterminate {
-      background-color: $color-grey;
-    }
-  }
-}
-
-.main-section {
-  padding: 3rem 0;
-}
-
-.nav-wrapper li a {
-  font-size: 1.4rem;
-  height: auto;
-  padding: 0.5rem 1rem 0.2rem 2rem;
-}
-
-.nav-wrapper li a:hover {
-  background: none;
-}
-
-.menu-title {
-  font-size: 2rem;
-  padding: 2rem 0 1rem;
-  text-align: center;
-}
-
 .page-footer {
   .btn-container {
     display: flex;
     justify-content: space-between;
 
-    @include for-size(phone-only) {
+    @media #{$small-and-down} {
       display: block;
-      //width: min-content;
     }
   }
 
@@ -67,6 +29,10 @@ body,
     font-size: 0.7rem;
     margin: 1rem 0;
   }
+}
+
+.menu-title {
+  @extend .red, .darken-4;
 }
 
 .footer-copyright .container {

@@ -1,0 +1,18 @@
+<article class="book-preview card-panel grey lighten-5 z-depth-1">
+    <div class="cover">
+        <img src="{{cover}}" alt="Cover for {{title}}" class="responsive-img"/>
+    </div>
+    <div class="description">
+        <h1 class="title">{{title}}</h1>
+        <p class="synopsis">
+            {{#if synopsis}}
+                {{synopsis}}
+            {{else}}
+                No synopsis.
+            {{/if}}
+        </p>
+        <p class="info">
+            <span class="price">{{price}}</span>
+        </p>
+    </div>
+</article>

@@ -51,7 +51,7 @@ linters:
     ignore_single_line_blocks: true
 
   EmptyRule:
-    enabled: true
+    enabled: false
 
   ExtendDirective:
     enabled: false

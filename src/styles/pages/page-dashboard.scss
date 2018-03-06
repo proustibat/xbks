@@ -5,7 +5,6 @@
   }
 
   h2 {
-    border-bottom: 1px solid $color-light;
     font-size: 1.6rem;
     margin-bottom: 0.7rem;
     padding-bottom: 0.7rem;
@@ -18,7 +17,6 @@
   }
 
   .sections {
-    background: $color-light-grey;
     border-radius: 0.2rem;
     padding: 2rem;
   }
@@ -39,7 +37,7 @@
   a {
     margin: 0.1rem;
 
-    @include for-size(phone-only) {
+    @media #{$small-and-down} {
       display: block;
       width: min-content;
     }

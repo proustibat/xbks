@@ -20,6 +20,7 @@
                 "function"
             ]
         }],
-        "declaration-colon-newline-after": null
+        "declaration-colon-newline-after": null,
+        "block-no-empty": null
     }
 }

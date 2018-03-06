@@ -12,10 +12,10 @@ class ApiPotier {
     }
 
     getAllBooks () {
-        return new Promise( ( resolve, reject ) => {
+        return new Promise( async ( resolve, reject ) => {
             // TODO: remove timeout, here just to test promise and loader display
-            setTimeout( () => {
-                $.ajax( {
+            setTimeout( async () => {
+                await $.ajax( {
                     url: this.urlAllBooks,
                     type: 'GET',
                     success: resolve,

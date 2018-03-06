@@ -10,6 +10,7 @@ module.exports = merge( common, {
                 use: [
                     'style-loader?sourceMap',
                     'css-loader?sourceMap',
+                    'resolve-url-loader?sourceMap',
                     'sass-loader?sourceMap'
                 ]
             }
