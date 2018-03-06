@@ -19,7 +19,7 @@ $headband-height: 5rem;
 
   .menu {
     display: flex;
-    font-size: .8rem;
+    font-size: 0.8rem;
     justify-content: space-around;
     margin: 0;
     padding: 0;
@@ -28,9 +28,5 @@ $headband-height: 5rem;
   a {
     color: $color-dark;
     text-decoration: none;
-  }
-
-  .is-active {
-    border-bottom: 2px solid;
   }
 }

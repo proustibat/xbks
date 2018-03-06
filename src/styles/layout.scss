@@ -1,0 +1,66 @@
+// *******************************
+//  LAYOUT
+// *******************************
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: $theme-font;
+}
+
+// Only necessary for window height sized blocks.
+html,
+body,
+.block {
+  height: 100%;
+}
+
+.main-section {
+  padding: 3rem 0;
+}
+
+.nav-wrapper li a {
+  font-size: 1.4rem;
+  height: auto;
+  padding: 0.5rem 1rem 0.2rem 2rem;
+}
+
+.nav-wrapper li a:hover {
+  background: none;
+}
+
+.menu-title {
+  font-size: 2rem;
+  padding: 2rem 0 1rem;
+  text-align: center;
+}
+
+.page-footer {
+  .btn-container {
+    display: flex;
+    justify-content: space-between;
+
+    @include for-size(phone-only) {
+      display: block;
+      //width: min-content;
+    }
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    margin: 1rem 0;
+  }
+}
+
+.footer-copyright .container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,47 @@
+.page-dashboard {
+  h1 {
+    font-size: 2rem;
+    padding: 1rem;
+  }
+
+  h2 {
+    border-bottom: 1px solid $color-light;
+    font-size: 1.6rem;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .sections {
+    background: $color-light-grey;
+    border-radius: 0.2rem;
+    padding: 2rem;
+  }
+
+  section {
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  a {
+    margin: 0.1rem;
+
+    @include for-size(phone-only) {
+      display: block;
+      width: min-content;
+    }
+  }
+}

@@ -1,13 +1,14 @@
 // vendors
-@import '../../node_modules/reset-css/reset.css';
+@import '~reset-css/reset.css';
+@import 'material-icon';
+@import '~materialize-css/dist/css/materialize.css';
 
 // App core
 @import 'theme-colors';
 @import 'variables';
 @import 'mixins';
-@import 'general';
-@import 'header';
+@import 'layout';
+@import 'pages/page-home';
+@import 'pages/page-dashboard';
+@import 'shame';
 
-// Pages
-@import 'page-app';
-@import 'page-cart';

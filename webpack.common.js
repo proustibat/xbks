@@ -2,7 +2,6 @@ const path = require( 'path' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
-const FaviconsWebpackPlugin = require( 'favicons-webpack-plugin' );
 
 const pagesList = [
     {
@@ -10,29 +9,19 @@ const pagesList = [
         filename: 'index'
     },
     {
-        title: 'Shopping Cart',
-        filename: 'cart'
+        title: 'Dashboard',
+        filename: 'dashboard'
     }
 ];
 
 const getHtmlWebpackPluginInstances = () => {
     return Object.values( pagesList ).map( page => {
-        const pageTitle = `XBKS - ${ page.title }`;
-        const header = `
-            <header class="header">
-                <h1 class="title">XBKS</h1>
-                <ul class="menu">
-                    ${ pagesList.map( pageLink => `<li class="${ pageLink.filename === page.filename ? 'is-active' : '' }"><a href="${ pageLink.filename }.html">${ pageLink.title }</a></li>` ).join( '' ) }
-                    <li><a href="https://github.com/proustibat/xbks" target="_blank">Source</a></li>
-                </ul>
-            </header>`;
         return new HtmlWebpackPlugin( {
             filename: `${ page.filename }.html`,
             template: `./src/templates/${ page.filename }.ejs`,
-            title: pageTitle,
+            title: `XBKS - ${ page.title }`,
             hash: true,
-            favicon: './src/templates/favicon.ico',
-            header: header
+            favicon: './src/favicon.ico'
         } );
     } );
 };
@@ -99,7 +88,6 @@ module.exports = {
             configFile: '.stylelintrc'
         } ),
         ...getHtmlWebpackPluginInstances(),
-        new FaviconsWebpackPlugin( './src/templates/favicon.png' ),
         new CleanWebpackPlugin( [ 'dist' ] )
     ],
     devtool: 'source-map'

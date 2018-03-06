@@ -5,11 +5,13 @@ import './app-info';
 import '../styles/main.scss';
 
 // libs
+import 'jquery'; // Materialize-css requires jQuery
+import 'materialize-css/dist/js/materialize'; // Materialize
 import './utils';
 
-// Pages
-import App from './app';
-import Cart from './cart';
+// App and pages
+import Home from './pages/home';
+import Dashboard from './pages/dashboard';
 
 // Information message for development mode
 if ( process.env.NODE_ENV !== 'production' ) {
@@ -20,7 +22,7 @@ document.ready().then( () => {
     // Find JS class to run depending on data-page-slug
     const selector = 'data-page-slug';
     const el = document.querySelector( `[${ selector }]` );
-    const SlugClass = el ? { App, Cart }[ el.getAttribute( selector ) ] : null;
+    const SlugClass = el ? { Home, Dashboard }[ el.getAttribute( selector ) ] : null;
 
     // Instantiation if a class is found
     if ( SlugClass ) {
