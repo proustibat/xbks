@@ -35,11 +35,11 @@ $theme-font: 'Goudy Bookletter 1911', serif;
 // 1. Colors
 // ==========================================================================
 
-$primary-color: color("red", "darken-4");
+$primary-color: color('red', 'darken-4');
 $primary-color-light: lighten($primary-color, 15%);
 $primary-color-dark: darken($primary-color, 15%);
 
-$secondary-color: color("amber", "accent-4");
+$secondary-color: color('amber', 'accent-4');
 //$success-color: color("green", "base") !default;
 //$error-color: color("red", "base") !default;
 //$link-color: color("light-blue", "darken-1") !default;

@@ -32,7 +32,10 @@ body {
 }
 
 .menu-title {
+  // This is recommanded by materialize.css: http://materializecss.com/color.html
+  // scss-lint:disable PlaceholderInExtend
   @extend .red, .darken-4;
+  // scss-lint:enable PlaceholderInExtend
 }
 
 .footer-copyright .container {
