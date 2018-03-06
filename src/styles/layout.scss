@@ -22,6 +22,16 @@ body,
   height: 100%;
 }
 
+.main-loader {
+  &.progress {
+    background-color: $color-darker;
+
+    .indeterminate {
+      background-color: $color-grey;
+    }
+  }
+}
+
 .main-section {
   padding: 3rem 0;
 }
