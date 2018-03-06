@@ -14,6 +14,7 @@ module.exports = merge( common, {
                     fallback: 'style-loader?sourceMap',
                     use: [
                         'css-loader?sourceMap',
+                        'resolve-url-loader?sourceMap',
                         'sass-loader?sourceMap'
                     ],
                 } )
