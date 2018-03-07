@@ -4,6 +4,8 @@ env:
     - GITHUB_REPO: proustibat/fbrgsm.mobile.app
     # token at https://github.com/settings/tokens/new, secure with travis encrypt -r username/repository GH_TOKEN=[the token you created before]
     - secure: "ZMySlRKwzYmvXkh1xkIIXdHpS7k9BdAMF/vWwPjKMX8fsrTb1pGure1Jrrc5lM9IHzhsxfWbi4P6zT4FoAyvBcI1OhJU5VjyCwA/X9qP3L6wBrjrlkDkH01bpaPD5HZ3jtiNz40L3+AJwjrUsX2SfdTa2zzkQviRWp4ua8+HKQBd1Lh2K07n9jT+IeNapTWEBcDFh1rcWra9EBgvD6HRF3GksfMH0AxI0m+EdpFinOwWhHi+qXYc235/7A5kBMV8N+TVSJAEYiDdDVS2CvzBItsuy+VWMcayrrmbc/2Dmox1MasQY5GIscS/jNFFfyHHwdy1SB+2eX3zwd+HZDiKajT6QW320azOpr6MSSL7B176JTbB0S64Lr9LVcnFqPjMliEPv6gxajht0v5SkcGMhV8HmU8RdIsY4a/6bJK7+9M6QTOtHmPsThwCZiTvlxWI23ub/h6ZvUJ7EBnPh7TaJn3w0hr743n6Xn6NAL9yLyp1oaxiDJdYL2FyDBQx2B9PyJeye2ogeJm4dKl3KcLyWvp9iuh/CClkpZHU/Tv5BgmlRYHxevxS6fjVYACljYWOuCAKGLtGopgZOoUWL33Ktm+Vm75NP+EU9E2BUfnH9CfXFxp7yOO6O9HfMV6pkMeguYXeldBUKHdJqbjyFzjHLwgCCSS0naAQWFGDPI7aY1Y="
+    - SURGE_LOGIN: proustibat@gmail.com
+    - SURGE_TOKEN: 50f5422e91b565db9e88ad0417498e19
 
 language: node_js
 node_js: '8'
@@ -45,7 +47,13 @@ script:
 # If we are here, we run bash deploy.sh
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash sonar.sh; fi
-  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash deploy.sh; fi
 
 # after_script:
 #   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+deploy:
+  provider: surge
+  project: ./dist/
+  domain: http://xkbs.surge.sh
+  skip_cleanup: true
+  on: master
