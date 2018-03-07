@@ -8,6 +8,7 @@
 @import '~materialize-css/sass/materialize';
 
 // App core
+@import 'utilities';
 @import 'layout';
 @import 'pages/page-home';
 @import 'pages/page-dashboard';

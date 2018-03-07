@@ -1,0 +1,35 @@
+// Define the "system" font family
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 300;
+  src: local('.SFNSText-Light'), local('.HelveticaNeueDeskInterface-Light'), local('.LucidaGrandeUI'), local('Ubuntu Light'), local('Segoe UI Light'), local('Roboto-Light'), local('DroidSans'), local('Tahoma');
+}
+
+// Overflow scroll gradient
+// Adds a fading gradient to an overflowing element to better indicate there is more content to be scrolled.
+// See https://atomiks.github.io/30-seconds-of-css/#overflow-scroll-gradient
+.overflow-scroll-gradient {
+  position: relative;
+}
+
+.overflow-scroll-gradient::after {
+  background: linear-gradient($color-gradient-light-transparent, $color-gradient-light);
+  bottom: 0;
+  content: '';
+  height: 25px;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.overflow-scroll-gradient-scroller {
+  background: $color-gradient-light;
+  height: 35%;
+  overflow-y: scroll;
+  width: 100%;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+}

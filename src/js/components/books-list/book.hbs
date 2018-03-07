@@ -1,18 +1,39 @@
-<article class="book-preview card-panel grey lighten-5 z-depth-1">
-    <div class="cover">
-        <img src="{{cover}}" alt="Cover for {{title}}" class="responsive-img"/>
-    </div>
-    <div class="description">
-        <h1 class="title">{{title}}</h1>
-        <p class="synopsis">
-            {{#if synopsis}}
-                {{synopsis}}
-            {{else}}
-                No synopsis.
-            {{/if}}
-        </p>
-        <p class="info">
-            <span class="price">{{price}}</span>
-        </p>
+<article class="book-preview grey lighten-5 col s12 l6">
+    <div class="card horizontal small">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img src="{{cover}}" alt="Cover for {{title}}" class="activator responsive-img"/>
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <span class="card-title grey-text text-darken-4">
+                    {{title}}
+                </span>
+                {{#if excerpt}}
+                    <div class="overflow-scroll-gradient">
+                        <div class="overflow-scroll-gradient-scroller no-scroll">
+                            <p>
+                                {{excerpt}}
+                            </p>
+                        </div>
+                        <i class="material-icons right activator btn-more">more_horiz</i>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="card-action valign-wrapper">
+                <span class="price">{{price}}</span>
+                <a href="#" title="Add to cart" class="cta-add-cart"><i class="material-icons">add_shopping_cart</i></a>
+            </div>
+        </div>
+        {{#if synopsis}}
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">
+                <i class="material-icons right">close</i>
+                {{title}}
+            </span>
+                {{#each synopsis}}
+                    <p>{{this}}</p>
+                {{/each}}
+        </div>
+        {{/if}}
     </div>
 </article>

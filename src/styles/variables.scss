@@ -1,4 +1,5 @@
 $theme-font: 'Goudy Bookletter 1911', serif;
+$system-font: 'system', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 
 // ==========================================================================
 // Materialize variables
@@ -319,3 +320,9 @@ $sidenav-font-color: $primary-color !default;
 // ==========================================================================
 
 //$progress-bar-color: $secondary-color !default;
+
+// ==========================================================================
+// Custom variables
+// ==========================================================================
+$color-gradient-light-transparent: rgba(255, 255, 255, 0.001);
+$color-gradient-light: #fff;

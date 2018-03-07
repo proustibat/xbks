@@ -14,14 +14,25 @@ class ApiPotier {
     getAllBooks () {
         return new Promise( async ( resolve, reject ) => {
             // TODO: remove timeout, here just to test promise and loader display
-            setTimeout( async () => {
-                await $.ajax( {
-                    url: this.urlAllBooks,
-                    type: 'GET',
-                    success: resolve,
-                    error: reject
-                } );
-            }, 5000 );
+            // setTimeout( async () => {
+            await $.ajax( {
+                url: this.urlAllBooks,
+                type: 'GET',
+                success: data => {
+                    // format data to return exactly what models are waiting for
+                    const formattedData = data.map( book => {
+                        book.excerpt = book.synopsis && book.synopsis.length > 0 ? book.synopsis[0] : null;
+                        book.price = book.price.toLocaleString( 'en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                        } );
+                        return formattedData;
+                    } );
+                    resolve( data );
+                },
+                error: reject
+            } );
+            // }, 5000 );
         } );
     }
 
