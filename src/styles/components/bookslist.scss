@@ -40,6 +40,12 @@
 
   .btn-more {
     cursor: pointer;
+    text-decoration: none;
+    color: initial;
+    margin: auto;
+    display: block;
+    width: fit-content;
+    background: none;
   }
 
   .card-reveal p {
