@@ -15,6 +15,18 @@ const Util = {
     getMap: ( length, data = null ) => {
         if ( !length ) return [];
         return Array.from( { length: length }, () => data );
+    },
+
+    /**
+     * Format in USD currency
+     * @param value
+     * @returns {string}
+     */
+    toLocalCurrency: ( value ) => {
+        return value.toLocaleString( 'en-US', {
+            style: 'currency',
+            currency: 'USD',
+        } );
     }
 };
 

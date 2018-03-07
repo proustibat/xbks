@@ -1,11 +1,13 @@
 import { default as template } from './bookslist.hbs';
 import ApiPotier from '../../services/api-potier';
+import BookPreview from '../book-preview/book-preview';
 
 export default class BooksList {
     constructor ( el ) {
-        console.log( 'Hello BooksList' );
         this.el = el;
         this.data = null;
+        this.content = null;
+        this.previews = null;
         this.api = new ApiPotier();
     }
 
@@ -21,12 +23,39 @@ export default class BooksList {
         } );
     }
 
+    prepare () {
+        // Booklisting Template
+        this.content = document.createElement( 'div' );
+        this.content.innerHTML = template( { books: this.data } );
+
+        // Create BookPreview instances
+        this.previews = this.data.map( data =>
+            new BookPreview( {
+                isbn: data.isbn,
+                cover: data.cover,
+                price: data.price,
+                synopsis: data.synopsis,
+                title: data.title,
+                excerpt: data.excerpt
+            } )
+                .prepare()
+
+        );
+        return this;
+    }
+
     display () {
-        console.log( 'BooksList.display' );
-        const div = document.createElement( 'div' );
-        div.innerHTML = template( {
-            books: this.data
+        // display booklisting template
+        this.el.appendChild( this.content.firstChild );
+
+        // display children templates: instances of BookPreview
+        this.previews.forEach( book => {
+            this.el.querySelector( '.booklisting' ).appendChild( book.el.firstChild );
         } );
-        this.el.appendChild( div );
+        return this;
+    }
+
+    destroy () {
+        this.el.remove();
     }
 }

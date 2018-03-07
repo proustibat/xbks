@@ -1,5 +1,6 @@
 import Layout from '../layout';
 import BooksList from '../components/books-list/books-list';
+import Cart from '../components/cart/cart';
 
 export default class Home {
     constructor ( el ) {
@@ -9,6 +10,7 @@ export default class Home {
         this.layout = null;
         this.books = null;
         this.bookList = null;
+        this.cart = null;
 
         this.createMainLoader();
 
@@ -37,14 +39,21 @@ export default class Home {
         // Display a loader while waiting for the api request
         this.displayMainLoader();
 
+        // Create a Cart component
+        // Cart class is a singleton, so init instruction must be called only here !
+        this.cart = new Cart();
+        this.cart.init( document.querySelector( '#cart-container' ) );
+
         // Create a BooksList component
         this.bookList = new BooksList( this.el.querySelector( '#books-list' ) );
 
-        // wait for the initialization of the BooksList component
+        // Wait for the initialization of the BooksList component
         await this.bookList.init()
             .then( () => {
                 // when the BooksList component is ready: display it
-                this.bookList.display();
+                this.bookList
+                    .prepare()
+                    .display();
             } )
             .catch( err => { console.error( err ); } );
 

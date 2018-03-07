@@ -22,13 +22,9 @@ class ApiPotier {
                     // format data to return exactly what models are waiting for
                     const formattedData = data.map( book => {
                         book.excerpt = book.synopsis && book.synopsis.length > 0 ? book.synopsis[0] : null;
-                        book.price = book.price.toLocaleString( 'en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                        } );
-                        return formattedData;
+                        return book;
                     } );
-                    resolve( data );
+                    resolve( formattedData );
                 },
                 error: reject
             } );

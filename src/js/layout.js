@@ -26,5 +26,22 @@ export default class Layout extends EventEmitter {
         } );
         // Initialize collapsible (uncomment the line below if you use the dropdown variation)
         // $('.collapsible').collapsible();
+
+        // Clicks on items
+        this.buttonsListener = this.onMenuItem.bind( this );
+        this.menuButtons = document.querySelectorAll( '.nav-wrapper .btn-js' );
+        this.listenMenu();
+    }
+
+    listenMenu () {
+        this.menuButtons.forEach( btn => btn.addEventListener( 'click', this.buttonsListener ) );
+    }
+
+    onMenuItem ( e ) {
+        const role = e.currentTarget.getAttribute( 'data-role' );
+        if ( role === 'cart' ) {
+            this.emit( 'open-cart' );
+            e.preventDefault();
+        }
     }
 }

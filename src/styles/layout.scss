@@ -3,16 +3,13 @@
 //// *******************************
 html {
   box-sizing: border-box;
+  font-family: $theme-font;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: inherit;
-}
-
-body {
-  font-family: $theme-font;
 }
 
 .page-footer {

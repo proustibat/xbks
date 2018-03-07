@@ -1,0 +1,54 @@
+<div class="modal modal-cart cart">
+    <div class="modal-content">
+        <h1>Shopping Cart</h1>
+
+        <h2>Order details</h2>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each items}}
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.total}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h2 class="total-title">Total</h2>
+        <table class="bordered">
+            <tr>
+                <td>Total before reduction</td>
+                <td>{{subTotal}}</td>
+            </tr>
+            <tr>
+                <td>Reduction (type: {{discount.type}})</td>
+                <td>{{discount.amount}}</td>
+            </tr>
+            <tr>
+                <td>Total after reduction</td>
+                <td>{{totalOrder}}</td>
+            </tr>
+        </table>
+
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-light btn red">
+                Cancel
+                <i class="material-icons left">cancel</i>
+            </a>
+            <a class="modal-action modal-close waves-effect waves-light btn green">
+                Check
+                <i class="material-icons right">credit_card</i>
+            </a>
+        </div>
+    </div>
+</div>

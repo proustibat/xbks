@@ -52,7 +52,13 @@ module.exports = {
             },
             {
                 test: /\.(hbs)$/,
-                loader: 'handlebars-loader'
+                loader: 'handlebars-loader',
+                // query: {
+                //     helpers: [ path.join( __dirname, 'handlebars-helpers', '**', '*.js' ) ],
+                //     helperDirs: [
+                //         path.join( __dirname, 'handlebars-helpers' )
+                //     ]
+                // }
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,

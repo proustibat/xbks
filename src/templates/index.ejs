@@ -17,18 +17,19 @@
         }
     </style>
 </head>
-<body class="">
+<body>
 
 <div class="page page-home">
     <div class="main-container" data-page-slug="Home">
         <nav role="navigation">
-            <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">XBKS</a>
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">XBKS</a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a>Cart</a></li>
+                    <li><a class="btn-js" data-role="cart">Cart</a></li>
                 </ul>
                 <ul id="nav-mobile" class="side-nav">
                     <li class="menu-title">MENU</li>
-                    <li><a>Cart</a></li>
+                    <li><a class="btn-js" data-role="cart">Cart</a></li>
                 </ul>
                 <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
@@ -56,5 +57,10 @@
         </footer>
     </div>
 </div>
+
+<div id="cart-container">
+    <!-- Here comes the modal cart from JS via Handlebars -->
+</div>
+
 </body>
 </html>
