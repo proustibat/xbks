@@ -10,8 +10,26 @@ export default class Layout extends EventEmitter {
     }
 
     init () {
+        this.loader = null;
+        this.createMainLoader();
         this.initMenu();
         return this;
+    }
+
+    createMainLoader () {
+        this.loader = document.createElement( 'div' );
+        this.loader.setAttribute( 'class', 'main-loader progress' );
+        const contentLoader = document.createElement( 'div' );
+        contentLoader.setAttribute( 'class', 'indeterminate' );
+        this.loader.appendChild( contentLoader );
+    }
+
+    displayMainLoader () {
+        document.body.prepend( this.loader );
+    }
+
+    removeMainLoader () {
+        this.loader.remove();
     }
 
     initMenu () {

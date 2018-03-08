@@ -6,13 +6,10 @@ export default class Home {
     constructor ( el ) {
         console.log( 'Hello Home' );
         this.el = el;
-        this.loader = null;
         this.layout = null;
         this.books = null;
         this.bookList = null;
         this.cart = null;
-
-        this.createMainLoader();
 
         try {
             this.showPage();
@@ -37,7 +34,7 @@ export default class Home {
         this.layout = new Layout();
 
         // Display a loader while waiting for the api request
-        this.displayMainLoader();
+        this.layout.displayMainLoader();
 
         // Create a Cart component
         // Cart class is a singleton, so init instruction must be called only here !
@@ -57,22 +54,6 @@ export default class Home {
             } )
             .catch( err => { console.error( err ); } );
 
-        this.removeMainLoader();
-    }
-
-    createMainLoader () {
-        this.loader = document.createElement( 'div' );
-        this.loader.setAttribute( 'class', 'main-loader progress' );
-        const contentLoader = document.createElement( 'div' );
-        contentLoader.setAttribute( 'class', 'indeterminate' );
-        this.loader.appendChild( contentLoader );
-    }
-
-    displayMainLoader () {
-        this.el.prepend( this.loader );
-    }
-
-    removeMainLoader () {
-        this.loader.remove();
+        this.layout.removeMainLoader();
     }
 }

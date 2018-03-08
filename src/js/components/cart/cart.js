@@ -1,6 +1,7 @@
 import { default as template } from './cart.hbs';
 import Layout from '../../layout';
 import Util from '../../utils';
+import ApiPotier from '../../services/api-potier';
 
 let instance = null;
 
@@ -14,6 +15,7 @@ export default class Cart {
         this.content = null;
         this.$modal = null;
         this.layout = null;
+        this.api = new ApiPotier();
 
         return instance;
     }
@@ -24,6 +26,7 @@ export default class Cart {
         this.discount = null;
         this.subTotal = null;
         this.totalOrder = null;
+        this.offers = null;
 
         this.content = document.createElement( 'div' );
 
@@ -59,8 +62,8 @@ export default class Cart {
     //     console.log( 'onModalClose' );
     // }
 
-    addBook ( { isbn, title, price } ) {
-        console.log( 'Cart.addBook ', isbn, title );
+    async addBook ( { isbn, title, price } ) {
+        this.layout.displayMainLoader();
 
         // Updates books list
         const index = this.items.findIndex( item => item.isbn === isbn );
@@ -77,22 +80,63 @@ export default class Cart {
             } );
         }
 
-        // update discount object
-        this.updateDiscount();
+        // Update total without reduction
+        this.updateSubTotal();
 
-        this.updateTotals();
+        // Update discount object
+        await this.updateDiscount();
+
+        // Update total with applied reduction
+        this.totalOrder = this.subTotal - this.discount.amount;
 
         this.render();
+
+        this.layout.removeMainLoader();
     }
 
-    updateDiscount () {
-        this.discount = {
-            type: null,
-            amount: 0
-        };
+    async updateDiscount () {
+        await this.findOffers();
+        this.discount = this.findBestReduction();
     }
 
-    updateTotals () {
+    async findOffers () {
+        // Get list of all isbn
+        // ( if there is more than one time, we must add its isbn more than one time)
+        const isbnList = [];
+        this.items.forEach( book => {
+            for ( let i = 0; i < book.quantity; i++ ) {
+                isbnList.push( book.isbn );
+            }
+        } );
+
+        await this.api.getOffers( isbnList )
+            .then( data => { this.offers = data; } )
+            .catch( error => { console.error( error ); } );
+    }
+
+    findBestReduction () {
+        const discounts = [];
+        this.offers.forEach( offer => {
+            discounts.push( offer );
+            switch ( offer.type ) {
+            case 'percentage':
+                discounts[ discounts.length - 1 ].amount = offer.value / 100 * this.subTotal;
+                break;
+            case 'minus':
+                discounts[ discounts.length - 1 ].amount = offer.value;
+                break;
+            case 'slice':
+                discounts[ discounts.length - 1 ].amount = Math.floor( this.subTotal / offer.sliceValue ) * offer.value;
+                break;
+            default:
+                break;
+            }
+        } );
+        // we need to compare amount and keep all the other stuff
+        return discounts.reduce( ( maxOffer, offer ) => offer.amount > maxOffer.amount ? offer : maxOffer, discounts[0] );
+    }
+
+    updateSubTotal () {
         if ( this.items.length > 0 ) {
             // update total without reduction (subtotal)
             const reducedSum = this.items.reduce( ( acc, item ) => {
@@ -102,9 +146,6 @@ export default class Cart {
             } );
             // if there is only one item in the cart, this is the original item
             this.subTotal = reducedSum.price * ( reducedSum.quantity || 1 );
-
-            // update total with applied reduction
-            this.totalOrder = this.subTotal - this.discount.amount;
         }
         else {
             this.subTotal = 0;
@@ -113,7 +154,6 @@ export default class Cart {
     }
 
     render () {
-        console.log( 'Cart.render ' );
         this.content.innerHTML = template( {
             items: this.items.map( item => {
                 return Object.assign( {}, item, {
