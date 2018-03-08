@@ -3,6 +3,7 @@ Fake e-commerce website with basical ES6 (transpiled with Babel via Webpack), Ha
 Deployed with surge.sh.
 
 **Demo:** [http://xkbs.surge.sh/](http://xkbs.surge.sh/)
+**Development dashboard:** [https://github.com/proustibat/xbks/wiki/Dashboard](https://github.com/proustibat/xbks/wiki/Dashboard)
 
 ## Prerequisites
 Please be sure you have a "front environment" with yarn, npm, webpack, sass...
