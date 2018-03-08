@@ -7,10 +7,6 @@ const pagesList = [
     {
         title: 'Books List',
         filename: 'index'
-    },
-    {
-        title: 'Dashboard',
-        filename: 'dashboard'
     }
 ];
 
