@@ -43,9 +43,10 @@ Here are the status and the issues of the project:
 [![Issues](https://img.shields.io/codeclimate/issues/github/proustibat/xbks.svg)](https://codeclimate.com/github/proustibat/xbks/issues)
 
 ## Sonarcloud
+I use **[Sonarqube](https://www.sonarqube.org/)** on [Sonarcloud.io](https://about.sonarcloud.io/get-started/) to keep my code safe.
 Check the [dashboard here](https://sonarcloud.io/dashboard?id=prstbt.xbks).
 Configuration file is 'sonar-project.properties'.
-You could tun it manually if you have installed sonar-scan but I suggest you to let Travis do the job!
+You could run it manually if you have installed sonar-scan but I suggest you to let Travis do the job!
 
 Here are some indicators of the project:
 
@@ -67,6 +68,21 @@ You could manually run `yarn deploy:surge` but it's recommended to just push you
 Note: this project is not deployed on Github Pages because of a restriction in requests: Github pages are in https but the project need to call http API, so browsers block. 
 We can deploy on http with Surge.
 You don't know Surge? [See the doc!](https://surge.sh/)
+
+## Contributing
+
+- Issue Tracker: [https://github.com/proustibat/xbks/issues](https://github.com/proustibat/xbks/issues)
+- Source Code: [https://github.com/proustibat/xbks](https://github.com/proustibat/xbks)
+
+
+### Commitizen
+If you wanna contribute to the project and create a pull request, use it by running `git cz` instead of `git commit`.
+Learn more about it [here](https://github.com/commitizen/cz-cli)
+
+### Greenkeeper
+It's a real-time monitoring and automatic updates for npm dependencies. If an update is available on our dependencies, it updates it on a specific branch and creates a pull request. 
+Travis will then be triggered, if tests are passed the pull request can be accepted.
+Learn more about it [here](https://greenkeeper.io/)
 
 
 
