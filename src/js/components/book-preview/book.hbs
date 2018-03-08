@@ -21,7 +21,18 @@
             </div>
             <div class="card-action valign-wrapper">
                 <span class="price">{{price}}</span>
-                <a href="#" title="Add to cart" class="cta-add-cart"><i class="material-icons">add_shopping_cart</i></a>
+                <div class="cart-loader preloader-wrapper small">
+                    <div class="spinner-layer">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+                </div>
+                <a href="#" title="Add to cart" class="cta-add-cart hide"><i class="material-icons">add_shopping_cart</i></a>
             </div>
         </div>
         {{#if synopsis}}

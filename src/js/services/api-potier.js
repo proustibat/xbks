@@ -33,19 +33,16 @@ class ApiPotier {
     }
 
     getOffers ( isbnList ) {
-        console.log( 'ApiPotier.getDiscount' );
         const url = `http://henri-potier.xebia.fr/books/${ isbnList.join( ',' ) }/commercialOffers`;
-        console.log( url );
-
         return new Promise( async ( resolve, reject ) => {
-            // setTimeout( async () => {
-            await $.ajax( {
-                url: url,
-                type: 'GET',
-                success: data => { resolve( data.offers ); },
-                error: reject
-            } );
-            // }, 3000 );
+            setTimeout( async () => {
+                await $.ajax( {
+                    url: url,
+                    type: 'GET',
+                    success: data => { resolve( data.offers ); },
+                    error: reject
+                } );
+            }, 2000 );
         } );
     }
 }

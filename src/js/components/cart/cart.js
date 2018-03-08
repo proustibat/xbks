@@ -63,35 +63,38 @@ export default class Cart {
     // }
 
     async addBook ( { isbn, title, price } ) {
-        this.layout.displayMainLoader();
+        return new Promise( async ( resolve ) => {
+            // this.layout.displayMainLoader();
 
-        // Updates books list
-        const index = this.items.findIndex( item => item.isbn === isbn );
-        // if item already exists in the cart, just increment the quantity
-        if ( index >= 0 ) {
-            this.items[ index ].quantity++;
-        }
-        else {
-            this.items.push( {
-                isbn: isbn,
-                title: title,
-                price: price,
-                quantity: 1
-            } );
-        }
+            // Updates books list
+            const index = this.items.findIndex( item => item.isbn === isbn );
+            // if item already exists in the cart, just increment the quantity
+            if ( index >= 0 ) {
+                this.items[ index ].quantity++;
+            }
+            else {
+                this.items.push( {
+                    isbn: isbn,
+                    title: title,
+                    price: price,
+                    quantity: 1
+                } );
+            }
 
-        // Update total without reduction
-        this.updateSubTotal();
+            // Update total without reduction
+            await this.updateSubTotal();
 
-        // Update discount object
-        await this.updateDiscount();
+            // Update discount object
+            await this.updateDiscount();
 
-        // Update total with applied reduction
-        this.totalOrder = this.subTotal - this.discount.amount;
+            // Update total with applied reduction
+            this.totalOrder = this.subTotal - this.discount.amount;
 
-        this.render();
+            await this.render();
 
-        this.layout.removeMainLoader();
+            // this.layout.removeMainLoader();
+            resolve();
+        } );
     }
 
     async updateDiscount () {
