@@ -4,7 +4,7 @@ HTMLDocument.prototype.ready = () => new Promise( resolve => document.readyState
  * Utility Functions
  * @type Object
  */
-const Util = {
+const Utils = {
     /**
      * Returns an array of requested length
      * with data or null object in each cell
@@ -30,4 +30,4 @@ const Util = {
     }
 };
 
-export default Util;
+export default Utils;

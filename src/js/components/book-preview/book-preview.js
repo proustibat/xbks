@@ -1,5 +1,5 @@
 import { default as template } from './book.hbs';
-import Util from '../../utils';
+import Utils from '../../utils';
 import Cart from '../cart/cart';
 
 export default class BookPreview {
@@ -16,7 +16,7 @@ export default class BookPreview {
         this.el.innerHTML = template(
             Object.assign( {},
                 this.data, {
-                    price: Util.toLocalCurrency( this.data.price )
+                    price: Utils.toLocalCurrency( this.data.price )
                 } )
         );
         this.cartLoader = this.el.querySelector( '.cart-loader' );

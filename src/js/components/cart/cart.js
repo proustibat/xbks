@@ -1,6 +1,6 @@
 import { default as template } from './cart.hbs';
 import Layout from '../../layout';
-import Util from '../../utils';
+import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
 
 let instance = null;
@@ -160,13 +160,13 @@ export default class Cart {
         this.content.innerHTML = template( {
             items: this.items.map( item => {
                 return Object.assign( {}, item, {
-                    total: Util.toLocalCurrency( item.price * item.quantity ),
-                    price: Util.toLocalCurrency( item.price )
+                    total: Utils.toLocalCurrency( item.price * item.quantity ),
+                    price: Utils.toLocalCurrency( item.price )
                 } );
             } ),
-            discount: Object.assign( {}, this.discount, { amount: this.discount ? Util.toLocalCurrency( this.discount.amount ) : null } ),
-            subTotal: this.subTotal !== null ? Util.toLocalCurrency( this.subTotal ) : 'jjj',
-            totalOrder: this.totalOrder !== null ? Util.toLocalCurrency( this.totalOrder ) : 0
+            discount: Object.assign( {}, this.discount, { amount: this.discount ? Utils.toLocalCurrency( this.discount.amount ) : null } ),
+            subTotal: this.subTotal !== null ? Utils.toLocalCurrency( this.subTotal ) : 'jjj',
+            totalOrder: this.totalOrder !== null ? Utils.toLocalCurrency( this.totalOrder ) : 0
         } );
 
         this.el.innerHTML = this.content.innerHTML;
