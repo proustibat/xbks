@@ -2,6 +2,7 @@ import { default as template } from './cart.hbs';
 import Layout from '../../layout';
 import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
+import Lockr from 'lockr';
 
 let instance = null;
 
@@ -20,7 +21,7 @@ export default class Cart {
         return instance;
     }
 
-    init ( el ) {
+    async init ( el ) {
         this.el = el;
         this.items = [];
         this.discount = null;
@@ -33,6 +34,14 @@ export default class Cart {
         // Listen to layout for click on cart menu item
         this.layout = new Layout();
         this.layout.on( 'open-cart', this.onOpenCart.bind( this ) );
+
+        // Retrieve items if existing from the localStorage
+        Lockr.prefix = 'xbks';
+        const localStorageItems = Lockr.get( 'cart-items' );
+        if ( localStorageItems ) {
+            this.items = localStorageItems;
+            await this.updateTotals();
+        }
 
         this.render();
     }
@@ -81,14 +90,10 @@ export default class Cart {
                 } );
             }
 
-            // Update total without reduction
-            await this.updateSubTotal();
+            // Save items into the localStorage
+            Lockr.set( 'cart-items', this.items );
 
-            // Update discount object
-            await this.updateDiscount();
-
-            // Update total with applied reduction
-            this.totalOrder = this.subTotal - this.discount.amount;
+            await this.updateTotals();
 
             await this.render();
 
@@ -97,12 +102,26 @@ export default class Cart {
         } );
     }
 
+    async updateTotals () {
+        console.log( 'updateTotals' );
+        // Update total without reduction
+        await this.updateSubTotal();
+
+        // Update discount object
+        await this.updateDiscount();
+
+        // Update total with applied reduction
+        this.totalOrder = this.subTotal - this.discount.amount;
+    }
+
     async updateDiscount () {
+        console.log( 'updateDiscount' );
         await this.findOffers();
         this.discount = this.findBestReduction();
     }
 
     async findOffers () {
+        console.log( 'findOffers' );
         // Get list of all isbn
         // ( if there is more than one time, we must add its isbn more than one time)
         const isbnList = [];
@@ -140,6 +159,7 @@ export default class Cart {
     }
 
     updateSubTotal () {
+        console.log( 'updateSubTotal' );
         if ( this.items.length > 0 ) {
             // update total without reduction (subtotal)
             const reducedSum = this.items.reduce( ( acc, item ) => {
