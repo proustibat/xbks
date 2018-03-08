@@ -2,17 +2,18 @@
     <div class="modal-content">
         <h1>Shopping Cart</h1>
 
-        <h2>Order details</h2>
-        <table class="striped">
-            <thead>
+        {{#if items.length}}
+            <h2>Order details</h2>
+            <table class="striped">
+                <thead>
                 <tr>
                     <th>Item</th>
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {{#each items}}
                 <tr>
                     <td>{{this.title}}</td>
@@ -21,34 +22,48 @@
                     <td>{{this.total}}</td>
                 </tr>
                 {{/each}}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-        <h2 class="total-title">Total</h2>
-        <table class="bordered">
+            <h2 class="total-title">Total</h2>
+            <table class="bordered">
+                <tbody>
+            {{#if discount.type}}
+                <tr>
+                    <td>Total before reduction</td>
+                    <td>{{subTotal}}</td>
+                </tr>
+                <tr>
+                    <td>Reduction (type: {{discount.type}})</td>
+                    <td>{{discount.amount}}</td>
+                </tr>
+            {{/if}}
             <tr>
-                <td>Total before reduction</td>
-                <td>{{subTotal}}</td>
-            </tr>
-            <tr>
-                <td>Reduction (type: {{discount.type}})</td>
-                <td>{{discount.amount}}</td>
-            </tr>
-            <tr>
-                <td>Total after reduction</td>
+                <td>Total amount to be paid</td>
                 <td>{{totalOrder}}</td>
             </tr>
+                </tbody>
         </table>
+        {{else}}
+            <h2>Your cart is empty!</h2>
+        {{/if}}
 
         <div class="modal-footer">
-            <a class="modal-action modal-close waves-effect waves-light btn red">
-                Cancel
-                <i class="material-icons left">cancel</i>
-            </a>
-            <a class="modal-action modal-close waves-effect waves-light btn green">
-                Check
-                <i class="material-icons right">credit_card</i>
-            </a>
+            {{#if items.length}}
+                <a class="modal-action modal-close waves-effect waves-light btn red">
+                    Cancel
+                    <i class="material-icons left">cancel</i>
+                </a>
+                <a class="modal-action modal-close waves-effect waves-light btn green">
+                    Check
+                    <i class="material-icons right">credit_card</i>
+                </a>
+            {{else}}
+                <a class="modal-action modal-close waves-effect waves-light btn green">
+                    Continue
+                    <i class="material-icons left">shopping_cart</i>
+                </a>
+            {{/if}}
         </div>
     </div>
 </div>

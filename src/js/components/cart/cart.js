@@ -6,8 +6,6 @@ let instance = null;
 
 export default class Cart {
     constructor () {
-        console.log( 'Hello Cart' );
-
         if ( !instance ) {
             instance = this;
         }
@@ -23,14 +21,9 @@ export default class Cart {
     init ( el ) {
         this.el = el;
         this.items = [];
-
-        this.discount = {
-            type: 'percentage',
-            amount: 20
-        };
-
-        this.subTotal = 60;
-        this.totalOrder = 40;
+        this.discount = null;
+        this.subTotal = null;
+        this.totalOrder = null;
 
         this.content = document.createElement( 'div' );
 
@@ -67,8 +60,9 @@ export default class Cart {
     // }
 
     addBook ( { isbn, title, price } ) {
-        console.log( 'Cart.addBook ', isbn, title, price );
+        console.log( 'Cart.addBook ', isbn, title );
 
+        // Updates books list
         const index = this.items.findIndex( item => item.isbn === isbn );
         // if item already exists in the cart, just increment the quantity
         if ( index >= 0 ) {
@@ -83,13 +77,43 @@ export default class Cart {
             } );
         }
 
-        // TODO: update discount, subtotal, totalorder
+        // update discount object
+        this.updateDiscount();
+
+        this.updateTotals();
 
         this.render();
     }
 
+    updateDiscount () {
+        this.discount = {
+            type: null,
+            amount: 0
+        };
+    }
+
+    updateTotals () {
+        if ( this.items.length > 0 ) {
+            // update total without reduction (subtotal)
+            const reducedSum = this.items.reduce( ( acc, item ) => {
+                const price1 = ( acc.price * ( acc.quantity || 1 ) );
+                const price2 = ( item.price * ( item.quantity || 1 ) );
+                return ( { price: price1 + price2 } );
+            } );
+            // if there is only one item in the cart, this is the original item
+            this.subTotal = reducedSum.price * ( reducedSum.quantity || 1 );
+
+            // update total with applied reduction
+            this.totalOrder = this.subTotal - this.discount.amount;
+        }
+        else {
+            this.subTotal = 0;
+            this.totalOrder = 0;
+        }
+    }
+
     render () {
-        console.log( 'Cart.render' );
+        console.log( 'Cart.render ' );
         this.content.innerHTML = template( {
             items: this.items.map( item => {
                 return Object.assign( {}, item, {
@@ -97,9 +121,9 @@ export default class Cart {
                     price: Util.toLocalCurrency( item.price )
                 } );
             } ),
-            discount: Object.assign( {}, this.discount, { amount: Util.toLocalCurrency( this.discount.amount ) } ),
-            subTotal: Util.toLocalCurrency( this.subTotal ),
-            totalOrder: Util.toLocalCurrency( this.totalOrder )
+            discount: Object.assign( {}, this.discount, { amount: this.discount ? Util.toLocalCurrency( this.discount.amount ) : null } ),
+            subTotal: this.subTotal !== null ? Util.toLocalCurrency( this.subTotal ) : 'jjj',
+            totalOrder: this.totalOrder !== null ? Util.toLocalCurrency( this.totalOrder ) : 0
         } );
 
         this.el.innerHTML = this.content.innerHTML;
