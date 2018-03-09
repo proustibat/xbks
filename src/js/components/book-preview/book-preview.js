@@ -9,6 +9,7 @@ export default class BookPreview {
         this.addButton = null;
         this.cartLoader = null;
         this.addCartListener = this.onAdd.bind( this );
+        this.seeCartListener = this.onSeeCart.bind( this );
     }
 
     prepare () {
@@ -23,6 +24,11 @@ export default class BookPreview {
         this.addButton = this.el.querySelector( '.cta-add-cart' );
         this.addButton.addEventListener( 'click', this.addCartListener );
         this.toggleLoaderCartButton( 'remove' );
+
+        this.toastButton = $( '<button class="btn toast-action waves-effect grey lighten-5 black-text toast-see-cart">See your cart</button>' );
+        this.toastButton[ 0 ].addEventListener( 'click', this.seeCartListener );
+        this.$toastContent = $( '<span>Your book has been added to your cart</span>' ).add( this.toastButton );
+
         return this;
     }
 
@@ -39,6 +45,7 @@ export default class BookPreview {
         } );
 
         this.toggleLoaderCartButton( 'remove' );
+        Materialize.toast( this.$toastContent, 30000, 'toast-feedback-add green' );
     }
 
     /**
@@ -50,7 +57,13 @@ export default class BookPreview {
         this.addButton.classList[ action ]( 'hide' );
     }
 
+    onSeeCart () {
+        Materialize.Toast.removeAll();
+        this.cart.onOpenCart();
+    }
+
     destroy () {
         this.addButton.removeEventListener( 'click', this.addCartListener );
+        this.toastButton[ 0 ].removeEventListener( 'click', this.seeCartListener );
     }
 }

@@ -40,3 +40,20 @@ html {
   display: flex;
   justify-content: space-between;
 }
+// This comes from MaterializeCSS
+// scss-lint:disable IdSelector
+#toast-container {
+  // scss-lint:enable IdSelector
+  height: fit-content;
+  left: 50%;
+  top: 5%;
+  transform: translateX(-50%);
+  width: fit-content;
+
+  @media #{$small-and-down} {
+    left: 0;
+    top: 0;
+    transform: none;
+    width: 100%;
+  }
+}

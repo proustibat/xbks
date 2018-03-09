@@ -38,9 +38,9 @@
       flex-direction: column;
       // override Materialize rules with strong depth
       // scss-lint:disable ImportantRule
-      max-width: 40% !important;
+      max-width: 30% !important;
       // scss-lint:enable ImportantRule
-      padding: 1rem 0 0 1rem;
+      padding: 1rem 0 1rem 1rem;
 
       img {
         max-height: 100%;
@@ -89,4 +89,14 @@
     // scss-lint:enable ImportantRule
     outline: none;
   }
+}
+
+.toast-see-cart {
+  font-size: 0.8rem;
+  // override Materialize rules with strong depth
+  // scss-lint:disable ImportantRule
+  font-weight: bold !important;
+  margin: 0 !important;
+  margin-left: 1rem !important;
+  // scss-lint:enable ImportantRule
 }
