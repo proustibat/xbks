@@ -45,7 +45,7 @@ export default class BookPreview {
         } );
 
         this.toggleLoaderCartButton( 'remove' );
-        Materialize.toast( this.$toastContent, 30000, 'toast-feedback-add green' );
+        Materialize.toast( this.$toastContent, 3000, 'toast-feedback-add green' );
     }
 
     /**
