@@ -1,0 +1,91 @@
+.book-preview {
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // override Materialize rules with strong depth
+    // scss-lint:disable ImportantRule
+    max-height: calc(100% - 70px) !important; // this is the height of card-action
+    overflow: hidden !important;
+    // scss-lint:enable ImportantRule
+    padding-bottom: 0;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    //  // override Materialize rules with strong depth
+    // scss-lint:disable ImportantRule
+    line-height: 1.2rem !important;
+    // scss-lint:enable ImportantRule
+    text-transform: uppercase;
+  }
+
+  .card-image {
+    min-width: fit-content;
+
+    img {
+      // override Materialize rules with strong depth
+      // scss-lint:disable ImportantRule
+      //height: auto !important;
+      // scss-lint:enable ImportantRule
+      max-height: 100%;
+    }
+
+    @media #{$small-and-down} {
+      display: flex;
+      flex-direction: column;
+      // override Materialize rules with strong depth
+      // scss-lint:disable ImportantRule
+      max-width: 40% !important;
+      // scss-lint:enable ImportantRule
+      padding: 1rem 0 0 1rem;
+
+      img {
+        max-height: 100%;
+        min-width: 100px;
+      }
+    }
+  }
+
+  .btn-more {
+    background: none;
+    color: initial;
+    cursor: pointer;
+    display: block;
+    font-family: $system-font;
+    line-height: 1.22rem;
+    margin: auto;
+    text-decoration: none;
+    width: fit-content;
+
+    .activator {
+      margin-left: 0;
+    }
+  }
+
+  .card-reveal p {
+    margin: 1rem 0;
+    text-align: justify;
+  }
+
+  .card-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .price {
+    font-family: $system-font;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .cta-add-cart {
+    // override Materialize rules with strong depth
+    // scss-lint:disable ImportantRule
+    margin: 0 !important;
+    // scss-lint:enable ImportantRule
+    outline: none;
+  }
+}

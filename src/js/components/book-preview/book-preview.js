@@ -1,4 +1,4 @@
-import { default as template } from './book.hbs';
+import { default as template } from './book-preview.hbs';
 import Utils from '../../utils';
 import Cart from '../cart/cart';
 

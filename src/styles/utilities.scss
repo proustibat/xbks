@@ -17,7 +17,7 @@
   background: linear-gradient($color-gradient-light-transparent, $color-gradient-light);
   bottom: 0;
   content: '';
-  height: 25px;
+  height: 20px;
   pointer-events: none;
   position: absolute;
   width: 100%;
@@ -25,7 +25,7 @@
 
 .overflow-scroll-gradient-scroller {
   background: $color-gradient-light;
-  height: 35%;
+  max-height: 80px;
   overflow-y: scroll;
   width: 100%;
 
