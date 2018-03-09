@@ -4,5 +4,5 @@ export interface IBook {
     title: string,
     synopsis: Array<string>,
     excerpt?: ?string,
-    price: Number
+    price: number
 }
