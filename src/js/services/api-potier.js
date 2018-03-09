@@ -35,14 +35,14 @@ class ApiPotier {
     getOffers ( isbnList ) {
         const url = `http://henri-potier.xebia.fr/books/${ isbnList.join( ',' ) }/commercialOffers`;
         return new Promise( async ( resolve, reject ) => {
-            setTimeout( async () => {
-                await $.ajax( {
-                    url: url,
-                    type: 'GET',
-                    success: data => { resolve( data.offers ); },
-                    error: reject
-                } );
-            }, 2000 );
+            // setTimeout( async () => {
+            await $.ajax( {
+                url: url,
+                type: 'GET',
+                success: data => { resolve( data.offers ); },
+                error: reject
+            } );
+            // }, 2000 );
         } );
     }
 }
