@@ -7,7 +7,7 @@ let instance = null;
 const urlAllBooks = 'http://henri-potier.xebia.fr/books';
 
 class ApiPotier {
-    constructor () {
+    constructor (): ApiPotier {
         if ( !instance ) {
             instance = this;
         }
@@ -15,7 +15,7 @@ class ApiPotier {
     }
 
     getAllBooks (): Promise<Array<IBook>> {
-        return new Promise( async ( resolve: Function, reject: Function ) => {
+        return new Promise( async ( resolve: Function, reject: Function ): Promise<any> => {
             // TODO: remove timeout, here just to test promise and loader display
             // setTimeout( async () => {
             await $.ajax( {
@@ -23,7 +23,7 @@ class ApiPotier {
                 type: 'GET',
                 success: ( data: any ) => {
                     // format data to return exactly what models are waiting for
-                    const formattedData = data.map( ( book: IBook ) => {
+                    const formattedData = data.map( ( book: IBook ): IBook => {
                         book.excerpt = book.synopsis && book.synopsis.length > 0 ? book.synopsis[0] : null;
                         return book;
                     } );
@@ -37,7 +37,7 @@ class ApiPotier {
 
     getOffers ( isbnList: Array<string> ): Promise<Array<any>> {
         const url = `http://henri-potier.xebia.fr/books/${ isbnList.join( ',' ) }/commercialOffers`;
-        return new Promise( async ( resolve: Function, reject: Function ) => {
+        return new Promise( async ( resolve: Function, reject: Function ): Promise<any> => {
             // setTimeout( async () => {
             await $.ajax( {
                 url: url,
