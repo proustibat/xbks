@@ -1,0 +1,13 @@
+[ignore]
+node_modules
+esdoc
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

@@ -1,9 +1,32 @@
+// @flow
+// $FlowFixMe
 import { default as template } from './book-preview.hbs';
+import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for Toast)
 import Utils from '../../utils';
 import Cart from '../cart/cart';
 
+/**
+ *
+ * @param {object} data
+ * @param {string} data.isbn
+ * @param {string} data.cover
+ * @param {string} data.excerpt
+ * @param {number} data.price
+ * @param {Array<string>} data.synopsis
+ * @param {string} data.title
+ */
 export default class BookPreview {
-    constructor ( { isbn, cover, excerpt, price, synopsis, title } ) {
+    data: any;
+    el: any;
+    addButton: any;
+    cartLoader: any;
+    addCartListener: any;
+    seeCartListener: any;
+    toastButton: any;
+    $toastContent: any;
+    cart: Cart;
+
+    constructor ( { isbn, cover, excerpt, price, synopsis, title }: { isbn: string, cover: string, excerpt: string, price: number, synopsis: Array<string>, title: string } ) {
         this.data = { isbn, cover, excerpt, price, synopsis, title };
         this.el = null;
         this.addButton = null;
@@ -12,7 +35,11 @@ export default class BookPreview {
         this.seeCartListener = this.onSeeCart.bind( this );
     }
 
-    prepare () {
+    /**
+     *
+     * @returns {BookPreview}
+     */
+    prepare (): BookPreview {
         this.el = document.createElement( 'div' );
         this.el.innerHTML = template(
             Object.assign( {},
@@ -32,7 +59,12 @@ export default class BookPreview {
         return this;
     }
 
-    async onAdd ( e ) {
+    /**
+     *
+     * @param {Event} e
+     * @returns {Promise<void>}
+     */
+    async onAdd ( e: Event ): Promise<void> {
         e.preventDefault();
 
         this.toggleLoaderCartButton( 'add' );
@@ -45,23 +77,31 @@ export default class BookPreview {
         } );
 
         this.toggleLoaderCartButton( 'remove' );
-        Materialize.toast( this.$toastContent, 30000, 'toast-feedback-add green' );
+        // $FlowFixMe
+        Materialize.toast( this.$toastContent, 3000, 'toast-feedback-add green' );
     }
 
     /**
      * Show or hide add to cart button and loader
      * @param {string} action must be 'add' or 'remove'
      */
-    toggleLoaderCartButton ( action ) {
+    toggleLoaderCartButton ( action: string ) {
         this.cartLoader.classList[ action ]( 'active' );
         this.addButton.classList[ action ]( 'hide' );
     }
 
+    /**
+     *
+     */
     onSeeCart () {
+        // $FlowFixMe
         Materialize.Toast.removeAll();
         this.cart.onOpenCart();
     }
 
+    /**
+     *
+     */
     destroy () {
         this.addButton.removeEventListener( 'click', this.addCartListener );
         this.toastButton[ 0 ].removeEventListener( 'click', this.seeCartListener );

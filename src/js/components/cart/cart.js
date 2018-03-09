@@ -1,13 +1,30 @@
+// @flow
+// $FlowFixMe
 import { default as template } from './cart.hbs';
 import Layout from '../../layout';
 import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
 import Lockr from 'lockr';
+import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for Modal)
 
 let instance = null;
 
+/**
+ *
+ */
 export default class Cart {
-    constructor () {
+    el: any;
+    content: any;
+    $modal: any;
+    layout: any;
+    api: ApiPotier;
+    items: any;
+    discount: any;
+    subTotal: any;
+    totalOrder: any;
+    offers: any;
+
+    constructor (): Cart {
         if ( !instance ) {
             instance = this;
         }
@@ -21,7 +38,12 @@ export default class Cart {
         return instance;
     }
 
-    async init ( el ) {
+    /**
+     *
+     * @param {HTMLElement} el
+     * @returns {Promise<void>}
+     */
+    async init ( el: any ): Promise<void> {
         this.el = el;
         this.items = [];
         this.discount = null;
@@ -46,6 +68,9 @@ export default class Cart {
         this.render();
     }
 
+    /**
+     *
+     */
     initModal () {
         this.$modal = $( '.modal-cart' );
         this.$modal.modal( {
@@ -59,6 +84,9 @@ export default class Cart {
         } );
     }
 
+    /**
+     *
+     */
     onOpenCart () {
         this.$modal.modal( 'open' );
     }
@@ -71,12 +99,20 @@ export default class Cart {
     //     console.log( 'onModalClose' );
     // }
 
-    async addBook ( { isbn, title, price } ) {
-        return new Promise( async ( resolve ) => {
+
+    /**
+     *
+     * @param {string} isbn
+     * @param {string} title
+     * @param {number} price
+     * @returns {Promise<any>}
+     */
+    async addBook ( { isbn, title, price }: { isbn: string, title: string, price: number } ): Promise<void> {
+        return new Promise( async ( resolve: Function ): Promise<void> => {
             // this.layout.displayMainLoader();
 
             // Updates books list
-            const index = this.items.findIndex( item => item.isbn === isbn );
+            const index = this.items.findIndex( ( item: any ): boolean => item.isbn === isbn );
             // if item already exists in the cart, just increment the quantity
             if ( index >= 0 ) {
                 this.items[ index ].quantity++;
@@ -102,7 +138,11 @@ export default class Cart {
         } );
     }
 
-    async updateTotals () {
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    async updateTotals (): Promise<void> {
         console.log( 'updateTotals' );
         // Update total without reduction
         await this.updateSubTotal();
@@ -114,31 +154,43 @@ export default class Cart {
         this.totalOrder = this.subTotal - this.discount.amount;
     }
 
-    async updateDiscount () {
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    async updateDiscount (): Promise<void> {
         console.log( 'updateDiscount' );
         await this.findOffers();
         this.discount = this.findBestReduction();
     }
 
-    async findOffers () {
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    async findOffers (): Promise<void> {
         console.log( 'findOffers' );
         // Get list of all isbn
         // ( if there is more than one time, we must add its isbn more than one time)
         const isbnList = [];
-        this.items.forEach( book => {
+        this.items.forEach( ( book: any ) => {
             for ( let i = 0; i < book.quantity; i++ ) {
                 isbnList.push( book.isbn );
             }
         } );
 
         await this.api.getOffers( isbnList )
-            .then( data => { this.offers = data; } )
-            .catch( error => { console.error( error ); } );
+            .then( ( data: any ) => { this.offers = data; } )
+            .catch( ( error: any ) => { console.error( error ); } );
     }
 
-    findBestReduction () {
+    /**
+     *
+     * @returns {*|any}
+     */
+    findBestReduction (): any {
         const discounts = [];
-        this.offers.forEach( offer => {
+        this.offers.forEach( ( offer: any ) => {
             discounts.push( offer );
             switch ( offer.type ) {
             case 'percentage':
@@ -155,14 +207,17 @@ export default class Cart {
             }
         } );
         // we need to compare amount and keep all the other stuff
-        return discounts.reduce( ( maxOffer, offer ) => offer.amount > maxOffer.amount ? offer : maxOffer, discounts[0] );
+        return discounts.reduce( ( maxOffer: any, offer: any ): any => offer.amount > maxOffer.amount ? offer : maxOffer, discounts[0] );
     }
 
+    /**
+     *
+     */
     updateSubTotal () {
         console.log( 'updateSubTotal' );
         if ( this.items.length > 0 ) {
             // update total without reduction (subtotal)
-            const reducedSum = this.items.reduce( ( acc, item ) => {
+            const reducedSum = this.items.reduce( ( acc: any, item: any ): any => {
                 const price1 = ( acc.price * ( acc.quantity || 1 ) );
                 const price2 = ( item.price * ( item.quantity || 1 ) );
                 return ( { price: price1 + price2 } );
@@ -176,9 +231,12 @@ export default class Cart {
         }
     }
 
+    /**
+     *
+     */
     render () {
         this.content.innerHTML = template( {
-            items: this.items.map( item => {
+            items: this.items.map( ( item: any ): any => {
                 return Object.assign( {}, item, {
                     total: Utils.toLocalCurrency( item.price * item.quantity ),
                     price: Utils.toLocalCurrency( item.price )
