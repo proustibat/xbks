@@ -1,7 +1,17 @@
+// @flow
 import EventEmitter from 'events';
+import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for sideNav)
 
+/**
+ * Layout
+ */
 export default class Layout extends EventEmitter {
-    constructor () {
+    static instance: any;
+    loader: any;
+    buttonsListener: any;
+    menuButtons: any;
+
+    constructor (): Layout {
         super();
         if ( !Layout.instance ) {
             Layout.instance = this.init();
@@ -9,13 +19,20 @@ export default class Layout extends EventEmitter {
         return Layout.instance;
     }
 
-    init () {
+    /**
+     *
+     * @returns {Layout}
+     */
+    init (): Layout {
         this.loader = null;
         this.createMainLoader();
         this.initMenu();
         return this;
     }
 
+    /**
+     *
+     */
     createMainLoader () {
         this.loader = document.createElement( 'div' );
         this.loader.setAttribute( 'class', 'main-loader progress' );
@@ -24,14 +41,24 @@ export default class Layout extends EventEmitter {
         this.loader.appendChild( contentLoader );
     }
 
+    /**
+     *
+     */
     displayMainLoader () {
+        // $FlowFixMe
         document.body.prepend( this.loader );
     }
 
+    /**
+     *
+     */
     removeMainLoader () {
         this.loader.remove();
     }
 
+    /**
+     *
+     */
     initMenu () {
         // Initialize collapse button
         $( '.button-collapse' ).sideNav( {
@@ -51,11 +78,18 @@ export default class Layout extends EventEmitter {
         this.listenMenu();
     }
 
+    /**
+     *
+     */
     listenMenu () {
-        this.menuButtons.forEach( btn => btn.addEventListener( 'click', this.buttonsListener ) );
+        this.menuButtons.forEach( ( btn: any ) => { btn.addEventListener( 'click', this.buttonsListener ); } );
     }
 
-    onMenuItem ( e ) {
+    /**
+     *
+     * @param e
+     */
+    onMenuItem ( e: any ) {
         const role = e.currentTarget.getAttribute( 'data-role' );
         if ( role === 'cart' ) {
             this.emit( 'open-cart' );

@@ -30,7 +30,7 @@ It creates a `dist` directory with all you need to deploy.
 
 ## Documentation
 The generated documentation is available on [https://proustibat.github.io/xbks/](https://proustibat.github.io/xbks/).
-You can run it manually with `yarn doc:esdoc` command but Travis deploy it on Github Pages when pushing. 
+You can run it manually with `yarn doc:documentation` command but Travis deploy it on Github Pages when pushing. 
 It uses the 'deploy.sh' script.
 
 
@@ -42,6 +42,11 @@ It runs 3 differents tasks: `yarn lint:stylelint`, `yarn lint:js` and `yarn lint
 Respective configurations are in '.stylelintrc', '.eslintrc.js' and '.scss-lint.yml' files.
 Don't know what I mean ? Read [Stylint documentation](https://stylelint.io/), [ESLint documentationt](https://eslint.org/) and [scsslint documentation](https://github.com/brigade/scss-lint/blob/master/README.md).
 
+
+## Flow
+A static type checker for Javascript. Run `yarn run flow` and `yarn lint:flow` if you wanna check your code is correct. 
+A webpack plugin is included in the project that checks for you while you're watching sources. 
+More about Flow here: [https://flow.org/en/](https://flow.org/en/)
 
 ## CodeClimate
 If [Code Climate CLI](https://github.com/codeclimate/codeclimate) is installed on your local machine, you can run `yarn codeclimate:analyze` to see what will be the result on the [Code Climate dashboard of the project](https://codeclimate.com/github/proustibat/xbks) after you will have pushed on the github repo.

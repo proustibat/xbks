@@ -1,9 +1,20 @@
+// @flow
+
 import Layout from '../layout';
 import BooksList from '../components/books-list/books-list';
 import Cart from '../components/cart/cart';
 
+/**
+ * @param {HTMLElement} el
+ */
 export default class Home {
-    constructor ( el ) {
+    el: any;
+    layout: any;
+    books: any;
+    bookList: any;
+    cart: any;
+
+    constructor ( el: any ) {
         console.log( 'Hello Home' );
         this.el = el;
         this.layout = null;
@@ -20,6 +31,9 @@ export default class Home {
         }
     }
 
+    /**
+     *
+     */
     showPage () {
         if ( !this.el ) {
             throw new Error( 'This app must be wrapped in a dom element with a ".main-container" class!' );
@@ -29,7 +43,11 @@ export default class Home {
         }
     }
 
-    async runApp () {
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    async runApp (): Promise<any> {
         // Menu and all layout stuff with Materialize
         this.layout = new Layout();
 
@@ -39,6 +57,7 @@ export default class Home {
         // Create a Cart component
         // Cart class is a singleton, so init instruction must be called only here !
         this.cart = new Cart();
+        // $FlowFixMe
         this.cart.init( document.querySelector( '#cart-container' ) );
 
         // Create a BooksList component
@@ -52,7 +71,7 @@ export default class Home {
                     .prepare()
                     .display();
             } )
-            .catch( err => { console.error( err ); } );
+            .catch( ( err: any ) => { console.error( err ); } );
 
         this.layout.removeMainLoader();
     }
