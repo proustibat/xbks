@@ -18,6 +18,8 @@
         "commitizen": "^2.9.6",
         "css-loader": "0.28.10",
         "cz-conventional-changelog": "^2.1.0",
+        "esdoc": "^1.0.4",
+        "esdoc-standard-plugin": "^1.0.0",
         "eslint": "4.18.2",
         "eslint-config-eslint": "4.0.0",
         "eslint-config-standard": "11.0.0",
@@ -65,7 +67,8 @@
         "lint:scss": "scss-lint --config .scss-lint.yml",
         "lint:stylelint": "./node_modules/.bin/stylelint 'src/**/*.scss' --color --fix",
         "lint:all": "yarn lint:stylelint && yarn lint:js && yarn lint:scss",
-        "codeclimate:analyze": "codeclimate analyze --dev -f html > codeclimate-out.html src && open codeclimate-out.html"
+        "codeclimate:analyze": "codeclimate analyze --dev -f html > codeclimate-out.html src && open codeclimate-out.html",
+        "doc:esdoc": "./node_modules/.bin/esdoc -c ./esdoc.json && open ./esdoc/index.html"
     },
     "config": {
         "commitizen": {

@@ -28,6 +28,12 @@ yarn build
 ```
 It creates a `dist` directory with all you need to deploy.
 
+## Documentation
+The generated documentation is available on [https://proustibat.github.io/xbks/](https://proustibat.github.io/xbks/).
+You can run it manually with `yarn doc:esdoc` command but Travis deploy it on Github Pages when pushing. 
+It uses the 'deploy.sh' script.
+
+
 ## Linters
 ```
 yarn lint:all 
