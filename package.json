@@ -65,10 +65,10 @@
         "deploy:surge": "surge --project ./dist --domain http://xbks.surge.sh",
         "lint:js": "eslint . --ext .js -c .eslintrc.js --fix",
         "lint:scss": "scss-lint --config .scss-lint.yml",
-        "lint:stylelint": "./node_modules/.bin/stylelint 'src/**/*.scss' --color --fix",
+        "lint:stylelint": "stylelint 'src/**/*.scss' --color --fix",
         "lint:all": "yarn lint:stylelint && yarn lint:js && yarn lint:scss",
         "codeclimate:analyze": "codeclimate analyze --dev -f html > codeclimate-out.html src && open codeclimate-out.html",
-        "doc:esdoc": "./node_modules/.bin/esdoc -c ./esdoc.json && open ./esdoc/index.html"
+        "doc:esdoc": "esdoc -c ./esdoc.json"
     },
     "config": {
         "commitizen": {
