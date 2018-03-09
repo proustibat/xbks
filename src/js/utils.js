@@ -1,4 +1,13 @@
-HTMLDocument.prototype.ready = () => new Promise( resolve => document.readyState === 'complete' ? resolve() : new Promise( resolve => ( document.onreadystatechange = () => document.readyState === 'complete' && resolve() ) ).then( resolve() ) );
+// @flow
+
+// $FlowFixMe
+HTMLDocument.prototype.ready = (): Promise<any> =>
+    new Promise( ( resolve: Function ) => {
+        document.readyState === 'complete' ? resolve() : new Promise( ( resolve: Function ) => {
+            // $FlowFixMe
+            document.onreadystatechange = () => { document.readyState === 'complete' && resolve(); };
+        } ).then( resolve() );
+    } );
 
 /**
  * Utility Functions
@@ -12,9 +21,9 @@ const Utils = {
      * @param data
      * @returns {*}
      */
-    getMap: ( length, data = null ) => {
+    getMap: ( length: number, data: any = null ): Array<any> => {
         if ( !length ) return [];
-        return Array.from( { length: length }, () => data );
+        return Array.from( { length: length }, (): any => data );
     },
 
     /**
@@ -22,7 +31,7 @@ const Utils = {
      * @param value
      * @returns {string}
      */
-    toLocalCurrency: ( value ) => {
+    toLocalCurrency: ( value: number ): string => {
         return value.toLocaleString( 'en-US', {
             style: 'currency',
             currency: 'USD',
