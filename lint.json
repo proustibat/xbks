@@ -1,0 +1,34 @@
+[
+  {
+    "name": "BookPreview#toggleLoaderCartButton",
+    "filePath": "src/js/components/book-preview/book-preview.js",
+    "lines": [
+      {
+        "lineNumber": 50,
+        "line": "    /**"
+      },
+      {
+        "lineNumber": 51,
+        "line": "     * Show or hide add to cart button and loader"
+      },
+      {
+        "lineNumber": 52,
+        "line": "     * @param action:string must be 'add' or 'remove'"
+      },
+      {
+        "lineNumber": 53,
+        "line": "     */"
+      },
+      {
+        "lineNumber": 54,
+        "line": "    toggleLoaderCartButton ( action ) {"
+      }
+    ],
+    "codeParams": [
+      "action"
+    ],
+    "docParams": [
+      "action:string"
+    ]
+  }
+]

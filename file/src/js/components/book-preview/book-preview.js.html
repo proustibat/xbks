@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../../">
+  <title data-ice="title">src/js/components/book-preview/book-preview.js | XBKS</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Fake e-commerce website"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="XBKS"><meta property="twitter:description" content="Fake e-commerce website"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/proustibat/xbks"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js">js</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/layout.js~Layout.html">Layout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Utils">Utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-components-book-preview">js/components/book-preview</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/components/book-preview/book-preview.js~BookPreview.html">BookPreview</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-components-books-list">js/components/books-list</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/components/books-list/books-list.js~BooksList.html">BooksList</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-components-cart">js/components/cart</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/components/cart/cart.js~Cart.html">Cart</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-pages">js/pages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/pages/home.js~Home.html">Home</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-services">js/services</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/services/api-potier.js~ApiPotier.html">ApiPotier</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/js/components/book-preview/book-preview.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { default as template } from &apos;./book-preview.hbs&apos;;
+import Utils from &apos;../../utils&apos;;
+import Cart from &apos;../cart/cart&apos;;
+
+export default class BookPreview {
+    constructor ( { isbn, cover, excerpt, price, synopsis, title } ) {
+        this.data = { isbn, cover, excerpt, price, synopsis, title };
+        this.el = null;
+        this.addButton = null;
+        this.cartLoader = null;
+        this.addCartListener = this.onAdd.bind( this );
+        this.seeCartListener = this.onSeeCart.bind( this );
+    }
+
+    prepare () {
+        this.el = document.createElement( &apos;div&apos; );
+        this.el.innerHTML = template(
+            Object.assign( {},
+                this.data, {
+                    price: Utils.toLocalCurrency( this.data.price )
+                } )
+        );
+        this.cartLoader = this.el.querySelector( &apos;.cart-loader&apos; );
+        this.addButton = this.el.querySelector( &apos;.cta-add-cart&apos; );
+        this.addButton.addEventListener( &apos;click&apos;, this.addCartListener );
+        this.toggleLoaderCartButton( &apos;remove&apos; );
+
+        this.toastButton = $( &apos;&lt;button class=&quot;btn toast-action waves-effect grey lighten-5 black-text toast-see-cart&quot;&gt;See your cart&lt;/button&gt;&apos; );
+        this.toastButton[ 0 ].addEventListener( &apos;click&apos;, this.seeCartListener );
+        this.$toastContent = $( &apos;&lt;span&gt;Your book has been added to your cart&lt;/span&gt;&apos; ).add( this.toastButton );
+
+        return this;
+    }
+
+    async onAdd ( e ) {
+        e.preventDefault();
+
+        this.toggleLoaderCartButton( &apos;add&apos; );
+
+        this.cart = new Cart(); // this is a singleton so don&apos;t panic!
+        await this.cart.addBook( {
+            isbn: this.data.isbn,
+            price: this.data.price,
+            title: this.data.title
+        } );
+
+        this.toggleLoaderCartButton( &apos;remove&apos; );
+        Materialize.toast( this.$toastContent, 30000, &apos;toast-feedback-add green&apos; );
+    }
+
+    /**
+     * Show or hide add to cart button and loader
+     * @param action:string must be &apos;add&apos; or &apos;remove&apos;
+     */
+    toggleLoaderCartButton ( action ) {
+        this.cartLoader.classList[ action ]( &apos;active&apos; );
+        this.addButton.classList[ action ]( &apos;hide&apos; );
+    }
+
+    onSeeCart () {
+        Materialize.Toast.removeAll();
+        this.cart.onOpenCart();
+    }
+
+    destroy () {
+        this.addButton.removeEventListener( &apos;click&apos;, this.addCartListener );
+        this.toastButton[ 0 ].removeEventListener( &apos;click&apos;, this.seeCartListener );
+    }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

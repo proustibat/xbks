@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | XBKS</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Fake e-commerce website"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="XBKS"><meta property="twitter:description" content="Fake e-commerce website"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/proustibat/xbks"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js">js</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/layout.js~Layout.html">Layout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Utils">Utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-components-book-preview">js/components/book-preview</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/components/book-preview/book-preview.js~BookPreview.html">BookPreview</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-components-books-list">js/components/books-list</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/components/books-list/books-list.js~BooksList.html">BooksList</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-components-cart">js/components/cart</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/components/cart/cart.js~Cart.html">Cart</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-pages">js/pages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/pages/home.js~Home.html">Home</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#js-services">js/services</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/js/services/api-potier.js~ApiPotier.html">ApiPotier</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="xbks--a-href--https---greenkeeper-io----img-src--https---badges-greenkeeper-io-proustibat-xbks-svg--alt--greenkeeper-badge----a-">xbks <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/proustibat/xbks.svg" alt="Greenkeeper badge"></a></h1><p>Fake e-commerce website with basical ES6 (transpiled with Babel via Webpack), Handlebars templates for components and Pug for pages, eslint, stylelint, scss-lint, travis, sonarcloud, codeclimate. 
+Deployed with surge.sh.</p>
+<p><strong>Demo:</strong> <a href="http://xbks.surge.sh/">http://xbks.surge.sh/</a></p>
+<p><strong>Development dashboard:</strong> <a href="https://github.com/proustibat/xbks/wiki/Dashboard">https://github.com/proustibat/xbks/wiki/Dashboard</a></p>
+<h2 id="prerequisites">Prerequisites</h2><p>Please be sure you have a &quot;front environment&quot; with yarn, npm, webpack, sass...</p>
+<h2 id="installation">Installation</h2><pre><code class="lang-bash"><code class="source-code prettyprint">yarn install</code>
+</code></pre>
+<h2 id="watching">Watching</h2><pre><code><code class="source-code prettyprint">yarn start</code>
+</code></pre><p>It runs your browser at <a href="http://localhost:8080/">http://localhost:8080/</a> then you could work on any source files.</p>
+<h2 id="building">Building</h2><pre><code><code class="source-code prettyprint">yarn build</code>
+</code></pre><p>It creates a <code>dist</code> directory with all you need to deploy.</p>
+<h2 id="documentation">Documentation</h2><p>The generated documentation is available on <a href="https://proustibat.github.io/xbks/">https://proustibat.github.io/xbks/</a>.
+You can run it manually with <code>yarn doc:esdoc</code> command but Travis deploy it on Github Pages when pushing. 
+It uses the &apos;deploy.sh&apos; script.</p>
+<h2 id="linters">Linters</h2><pre><code><code class="source-code prettyprint">yarn lint:all</code>
+</code></pre><p>It runs 3 differents tasks: <code>yarn lint:stylelint</code>, <code>yarn lint:js</code> and <code>yarn lint:scss</code>.
+Respective configurations are in &apos;.stylelintrc&apos;, &apos;.eslintrc.js&apos; and &apos;.scss-lint.yml&apos; files.
+Don&apos;t know what I mean ? Read <a href="https://stylelint.io/">Stylint documentation</a>, <a href="https://eslint.org/">ESLint documentationt</a> and <a href="https://github.com/brigade/scss-lint/blob/master/README.md">scsslint documentation</a>.</p>
+<h2 id="codeclimate">CodeClimate</h2><p>If <a href="https://github.com/codeclimate/codeclimate">Code Climate CLI</a> is installed on your local machine, you can run <code>yarn codeclimate:analyze</code> to see what will be the result on the <a href="https://codeclimate.com/github/proustibat/xbks">Code Climate dashboard of the project</a> after you will have pushed on the github repo.
+The custom configuration is in &apos;.codeclimate.yml&apos; file.</p>
+<p>Here are the status and the issues of the project:</p>
+<p><a href="https://codeclimate.com/github/proustibat/xbks/maintainability"><img src="https://api.codeclimate.com/v1/badges/429061f29db6bc8f6015/maintainability" alt="Maintainability"></a>
+<a href="https://codeclimate.com/github/proustibat/xbks/issues"><img src="https://img.shields.io/codeclimate/issues/github/proustibat/xbks.svg" alt="Issues"></a></p>
+<h2 id="sonarcloud">Sonarcloud</h2><p>I use <strong><a href="https://www.sonarqube.org/">Sonarqube</a></strong> on <a href="https://about.sonarcloud.io/get-started/">Sonarcloud.io</a> to keep my code safe.
+Check the <a href="https://sonarcloud.io/dashboard?id=prstbt.xbks">dashboard here</a>.
+Configuration file is &apos;sonar-project.properties&apos;.
+You could run it manually if you have installed sonar-scan but I suggest you to let Travis do the job!</p>
+<p>Here are some indicators of the project:</p>
+<p><a href="https://sonarcloud.io/component_measures?id=prstbt.xbks&amp;metric=open_issues" target="_blank"><img src="https://sonarcloud.io/api/badges/measure?key=prstbt.xbks&amp;metric=open_issues"></a>
+<a href="https://sonarcloud.io/component_measures?id=prstbt.xbks&amp;metric=code_smells" target="_blank"><img src="https://sonarcloud.io/api/badges/measure?key=prstbt.xbks&amp;metric=code_smells"></a>
+<a href="https://sonarcloud.io/component_measures?id=prstbt.xbks&amp;metric=sqale_index" target="_blank"><img src="https://sonarcloud.io/api/badges/measure?key=prstbt.xbks&amp;metric=sqale_index"></a>
+<a href="https://sonarcloud.io/component_measures?id=prstbt.xbks&amp;metric=comment_lines_density" target="_blank"><img src="https://sonarcloud.io/api/badges/measure?key=prstbt.xbks&amp;metric=comment_lines_density"></a></p>
+<h2 id="travis">Travis</h2><p>Configuration is in &apos;.travis.yml&apos; file. It install the right thingsm then run linters, build, sonar-can, deploy on surge. 
+It should also run the tests if we had some!
+Here is the status of our dashboard:</p>
+<p><a href="https://travis-ci.org/proustibat/xbks"><img src="https://travis-ci.org/proustibat/xbks.svg?branch=master" alt="Build Status"></a></p>
+<h2 id="deployment-on-surge">Deployment on Surge</h2><p>You could manually run <code>yarn deploy:surge</code> but it&apos;s recommended to just push your work on master (or do a pull request) and then Travis will do the things for you!
+Note: this project is not deployed on Github Pages because of a restriction in requests: Github pages are in https but the project need to call http API, so browsers block. 
+We can deploy on http with Surge.
+You don&apos;t know Surge? <a href="https://surge.sh/">See the doc!</a></p>
+<h2 id="contributing">Contributing</h2><ul>
+<li>Issue Tracker: <a href="https://github.com/proustibat/xbks/issues">https://github.com/proustibat/xbks/issues</a></li>
+<li>Source Code: <a href="https://github.com/proustibat/xbks">https://github.com/proustibat/xbks</a></li>
+</ul>
+<h3 id="commitizen">Commitizen</h3><p>If you wanna contribute to the project and create a pull request, use it by running <code>git cz</code> instead of <code>git commit</code>.
+Learn more about it <a href="https://github.com/commitizen/cz-cli">here</a></p>
+<h3 id="greenkeeper">Greenkeeper</h3><p>It&apos;s a real-time monitoring and automatic updates for npm dependencies. If an update is available on our dependencies, it updates it on a specific branch and creates a pull request. 
+Travis will then be triggered, if tests are passed the pull request can be accepted.
+Learn more about it <a href="https://greenkeeper.io/">here</a></p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
