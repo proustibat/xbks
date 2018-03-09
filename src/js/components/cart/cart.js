@@ -6,7 +6,6 @@ import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
 import Lockr from 'lockr';
 import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for Modal)
-import { IBook } from '../../interfaces';
 
 let instance = null;
 
