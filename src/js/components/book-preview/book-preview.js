@@ -50,7 +50,7 @@ export default class BookPreview {
 
     /**
      * Show or hide add to cart button and loader
-     * @param action:string must be 'add' or 'remove'
+     * @param {string} action must be 'add' or 'remove'
      */
     toggleLoaderCartButton ( action ) {
         this.cartLoader.classList[ action ]( 'active' );
