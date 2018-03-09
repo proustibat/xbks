@@ -11,16 +11,14 @@
         "babel-eslint": "8.2.2",
         "babel-loader": "7.1.4",
         "babel-polyfill": "6.26.0",
-        "babel-preset-env": "1.6.1",
+        "babel-preset-env": "^1.6.1",
         "babel-preset-flow": "^6.23.0",
-        "babel-preset-latest": "6.24.1",
         "chalk": "2.3.2",
         "clean-webpack-plugin": "0.1.19",
         "commitizen": "^2.9.6",
         "css-loader": "0.28.10",
         "cz-conventional-changelog": "^2.1.0",
-        "esdoc": "^1.0.4",
-        "esdoc-standard-plugin": "^1.0.0",
+        "documentation": "^6.1.0",
         "eslint": "4.18.2",
         "eslint-config-eslint": "4.0.0",
         "eslint-config-standard": "11.0.0",
@@ -73,7 +71,7 @@
         "lint:flow": "yarn run flow",
         "lint:all": "yarn lint:stylelint && yarn lint:js && yarn lint:scss && yarn lint:flow",
         "codeclimate:analyze": "codeclimate analyze --dev -f html > codeclimate-out.html src && open codeclimate-out.html",
-        "doc:esdoc": "esdoc -c ./esdoc.json"
+        "doc:documentation": "documentation build src/** -f html -o documentation -g"
     },
     "config": {
         "commitizen": {

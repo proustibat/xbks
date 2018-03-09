@@ -6,6 +6,11 @@ import { IBook } from '../interfaces';
 let instance = null;
 const urlAllBooks = 'http://henri-potier.xebia.fr/books';
 
+
+/**
+ *
+ * @returns {ApiPotier}
+ */
 class ApiPotier {
     constructor (): ApiPotier {
         if ( !instance ) {
@@ -14,6 +19,10 @@ class ApiPotier {
         return instance;
     }
 
+    /**
+     *
+     * @returns {Promise<Array<IBook>>}
+     */
     getAllBooks (): Promise<Array<IBook>> {
         return new Promise( async ( resolve: Function, reject: Function ): Promise<any> => {
             // TODO: remove timeout, here just to test promise and loader display
@@ -35,6 +44,11 @@ class ApiPotier {
         } );
     }
 
+    /**
+     *
+     * @param {Array<string>} isbnList
+     * @returns {Promise<Array<any>>}
+     */
     getOffers ( isbnList: Array<string> ): Promise<Array<any>> {
         const url = `http://henri-potier.xebia.fr/books/${ isbnList.join( ',' ) }/commercialOffers`;
         return new Promise( async ( resolve: Function, reject: Function ): Promise<any> => {
