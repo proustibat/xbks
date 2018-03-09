@@ -1,8 +1,5 @@
-// vendors
-@import '~reset-css/reset.css';
-@import 'material-icon';
-
 // Materialize
+@import 'material-icon';
 @import '~materialize-css/sass/components/color'; // color should be imported before custom variables
 @import 'variables'; // overriden materialize variables
 @import '~materialize-css/sass/materialize';

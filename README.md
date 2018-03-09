@@ -1,6 +1,6 @@
-# xbks
+# xbks [![Greenkeeper badge](https://badges.greenkeeper.io/proustibat/xbks.svg)](https://greenkeeper.io/)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/proustibat/xbks.svg)](https://greenkeeper.io/)
+
 Fake e-commerce website with basical ES6 (transpiled with Babel via Webpack), Handlebars templates for components and Pug for pages, eslint, stylelint, scss-lint, travis, sonarcloud, codeclimate. 
 Deployed with surge.sh.
 

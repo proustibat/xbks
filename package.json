@@ -1,7 +1,8 @@
 {
-    "name": "xbk",
+    "name": "xbks",
     "version": "1.0.0",
-    "main": "main.js",
+    "main": "src/js/main.js",
+    "private": true,
     "repository": "https://github.com/proustibat/xbks.git",
     "author": "Jennifer Proust <jennifer.proust@gmail.com>",
     "license": "MIT",
@@ -53,8 +54,7 @@
         "events": "^2.0.0",
         "jquery": "3.3.1",
         "lockr": "^0.8.4",
-        "materialize-css": "0.100.2",
-        "reset-css": "2.2.1"
+        "materialize-css": "0.100.2"
     },
     "scripts": {
         "preinstall": "gem install scss_lint",
