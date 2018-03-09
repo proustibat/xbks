@@ -44,8 +44,9 @@
         "underscore-template-loader": "1.0.0",
         "url-loader": "1.0.1",
         "util": "0.10.3",
-        "webpack": "4.1.1",
-        "webpack-dev-server": "3.1.0",
+        "webpack": "3.11.0",
+        "webpack-cli": "^2.0.10",
+        "webpack-dev-server": "2.11.2",
         "webpack-merge": "4.1.2"
     },
     "dependencies": {
@@ -70,5 +71,11 @@
         "commitizen": {
             "path": "./node_modules/cz-conventional-changelog"
         }
+    },
+    "greenkeeper": {
+        "ignore": [
+            "webpack",
+            "webpack-dev-server"
+        ]
     }
 }
