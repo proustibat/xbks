@@ -59,7 +59,7 @@
         "preinstall": "gem install scss_lint",
         "start": "node build.js && webpack-dev-server --open  --config webpack.dev.js",
         "build": "node build.js && webpack --config webpack.prod.js",
-        "deploy:surge": "surge --project ./dist --domain http://xkbs.surge.sh",
+        "deploy:surge": "surge --project ./dist --domain http://xbks.surge.sh",
         "lint:js": "eslint . --ext .js -c .eslintrc.js --fix",
         "lint:scss": "scss-lint --config .scss-lint.yml",
         "lint:stylelint": "./node_modules/.bin/stylelint 'src/**/*.scss' --color --fix",

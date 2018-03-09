@@ -2,7 +2,7 @@
 Fake e-commerce website with basical ES6 (transpiled with Babel via Webpack), Handlebars templates for components and Pug for pages, eslint, stylelint, scss-lint, travis, sonarcloud, codeclimate. 
 Deployed with surge.sh.
 
-**Demo:** [http://xkbs.surge.sh/](http://xkbs.surge.sh/)
+**Demo:** [http://xbks.surge.sh/](http://xbks.surge.sh/)
 
 **Development dashboard:** [https://github.com/proustibat/xbks/wiki/Dashboard](https://github.com/proustibat/xbks/wiki/Dashboard)
 
