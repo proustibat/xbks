@@ -1,8 +1,18 @@
 .page-home {
-  [data-role="cart"] .badge {
-    border-radius: 2px;
-    color: $primary-color-dark;
-    font-family: $system-font;
-    font-size: 0.8rem;
+  [data-role="cart"] {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    .badge {
+      border-radius: 2px;
+      color: $primary-color-dark;
+      font-family: $system-font;
+      font-size: 0.8rem;
+    }
+
+    .material-icons {
+      margin: 0;
+    }
   }
 }
