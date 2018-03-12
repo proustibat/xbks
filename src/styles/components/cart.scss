@@ -17,6 +17,11 @@
 
     .modal-action {
       margin: 1rem;
+
+      @media #{$small-and-down} {
+        margin: 1rem 0.2rem;
+        padding: 0 1rem;
+      }
     }
   }
 }
