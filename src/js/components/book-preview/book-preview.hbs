@@ -24,6 +24,29 @@
             </div>
             <div class="card-action valign-wrapper hide-on-small-and-down">
                 <span class="price">{{price}}</span>
+                <div class="cart-info valign-wrapper">
+                    <span class="badge amber accent-4 nb-in-cart">0</span>
+                    <div class="cart-loader preloader-wrapper small">
+                        <div class="spinner-layer">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+                    </div>
+                    <a href="#" title="Add to cart" class="cta-add-cart hide">
+                        <i class="material-icons">add_shopping_cart</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-action valign-wrapper hide-on-med-and-up">
+            <span class="price">{{price}}</span>
+            <div class="cart-info valign-wrapper">
+                <span class="badge amber accent-4 nb-in-cart">0</span>
                 <div class="cart-loader preloader-wrapper small">
                     <div class="spinner-layer">
                         <div class="circle-clipper left">
@@ -35,23 +58,10 @@
                     </div>
                     </div>
                 </div>
-                <a href="#" title="Add to cart" class="cta-add-cart hide"><i class="material-icons">add_shopping_cart</i></a>
+                <a href="#" title="Add to cart" class="cta-add-cart hide">
+                    <i class="material-icons">add_shopping_cart</i>
+                </a>
             </div>
-        </div>
-        <div class="card-action valign-wrapper hide-on-med-and-up">
-            <span class="price">{{price}}</span>
-            <div class="cart-loader preloader-wrapper small">
-                <div class="spinner-layer">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-                </div>
-            </div>
-            <a href="#" title="Add to cart" class="cta-add-cart hide"><i class="material-icons">add_shopping_cart</i></a>
         </div>
         {{#if synopsis}}
         <div class="card-reveal">

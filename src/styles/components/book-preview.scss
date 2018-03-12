@@ -89,6 +89,23 @@
     // scss-lint:enable ImportantRule
     outline: none;
   }
+
+  .cart-loader {
+    display: none;
+    width: 24px;
+    height: 24px;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  .nb-in-cart {
+    color: $primary-color-dark;
+    border-radius: 2px;
+    font-family: $system-font;
+    margin: 0 1rem 0 0;
+  }
 }
 
 .toast-see-cart {

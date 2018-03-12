@@ -25,6 +25,7 @@ export default class BookPreview {
     toastButton: any;
     $toastContent: any;
     cart: Cart;
+    badgeNb: any;
 
     constructor ( { isbn, cover, excerpt, price, synopsis, title }: { isbn: string, cover: string, excerpt: string, price: number, synopsis: Array<string>, title: string } ) {
         this.data = { isbn, cover, excerpt, price, synopsis, title };
@@ -58,6 +59,10 @@ export default class BookPreview {
         this.toastButton[ 0 ].addEventListener( 'click', this.seeCartListener );
         this.$toastContent = $( '<span>Your book has been added to your cart</span>' ).add( this.toastButton );
 
+        this.cart = new Cart(); // this is a singleton so don't panic!
+        this.badgeNb = this.el.querySelector( '.nb-in-cart' );
+        this.updateBadgeItem();
+
         return this;
     }
 
@@ -71,16 +76,24 @@ export default class BookPreview {
 
         this.toggleLoaderCartButton( 'add' );
 
-        this.cart = new Cart(); // this is a singleton so don't panic!
         await this.cart.addBook( {
             isbn: this.data.isbn,
             price: this.data.price,
             title: this.data.title
         } );
 
+        this.updateBadgeItem();
+
         this.toggleLoaderCartButton( 'remove' );
         // $FlowFixMe
         Materialize.toast( this.$toastContent, 3000, 'toast-feedback-add green' );
+    }
+
+    /**
+     *
+     */
+    updateBadgeItem() {
+        this.badgeNb.innerHTML = this.cart.findNbForItem( this.data.isbn );
     }
 
     /**

@@ -58,7 +58,7 @@ export default class Home {
         // Cart class is a singleton, so init instruction must be called only here !
         this.cart = new Cart();
         // $FlowFixMe
-        this.cart.init( document.querySelector( '#cart-container' ) );
+        await this.cart.init( document.querySelector( '#cart-container' ) );
 
         // Create a BooksList component
         this.bookList = new BooksList( this.el.querySelector( '#books-list' ) );
