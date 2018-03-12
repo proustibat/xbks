@@ -5,7 +5,8 @@ import Layout from '../../layout';
 import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
 import Lockr from 'lockr';
-import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for Modal)
+import { default as $ } from 'jquery';
+import BookPreview from "../book-preview/book-preview"; // As Materialize-css requires jQuery (here use for Modal)
 
 let instance = null;
 
@@ -252,7 +253,22 @@ export default class Cart {
         this.initModal();
     }
 
+    /**
+     *
+     * @returns {number}
+     */
     get nbItems (): number {
         return this.items.reduce( ( accumulator: number, item: any ): number => accumulator + item.quantity, 0 );
+    }
+
+    /**
+     *
+     * @param {string} isbn
+     * @returns {number}
+     */
+    findNbForItem( isbn: string ): number {
+        console.log( 'Cart.findNbForItem: ', isbn );
+        const item = this.items.find( ( item: any ): boolean => item.isbn === isbn );
+        return item ? item.quantity : 0;
     }
 }

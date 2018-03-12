@@ -52,7 +52,7 @@ class ApiPotier {
     getOffers ( isbnList: Array<string> ): Promise<Array<any>> {
         const url = `http://henri-potier.xebia.fr/books/${ isbnList.join( ',' ) }/commercialOffers`;
         return new Promise( async ( resolve: Function, reject: Function ): Promise<any> => {
-            // setTimeout( async () => {
+            // setTimeout( async (): Promise<any> => {
             await $.ajax( {
                 url: url,
                 type: 'GET',
