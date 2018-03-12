@@ -16,7 +16,7 @@ export default class Cart {
     el: any;
     content: any;
     $modal: any;
-    layout: any;
+    layout: Layout;
     api: ApiPotier;
     items: any;
     discount: any;
@@ -32,7 +32,7 @@ export default class Cart {
         this.el = null;
         this.content = null;
         this.$modal = null;
-        this.layout = null;
+        this.layout = new Layout();
         this.api = new ApiPotier();
 
         return instance;
@@ -54,7 +54,6 @@ export default class Cart {
         this.content = document.createElement( 'div' );
 
         // Listen to layout for click on cart menu item
-        this.layout = new Layout();
         this.layout.on( 'open-cart', this.onOpenCart.bind( this ) );
 
         // Retrieve items if existing from the localStorage
@@ -109,7 +108,6 @@ export default class Cart {
      */
     async addBook ( { isbn, title, price }: { isbn: string, title: string, price: number } ): Promise<void> {
         return new Promise( async ( resolve: Function ): Promise<void> => {
-            // this.layout.displayMainLoader();
 
             // Updates books list
             const index = this.items.findIndex( ( item: any ): boolean => item.isbn === isbn );
@@ -133,7 +131,7 @@ export default class Cart {
 
             await this.render();
 
-            // this.layout.removeMainLoader();
+
             resolve();
         } );
     }
@@ -144,6 +142,9 @@ export default class Cart {
      */
     async updateTotals (): Promise<void> {
         console.log( 'updateTotals' );
+        // Update items number on ui
+        this.layout.updateItems( this.nbItems );
+
         // Update total without reduction
         await this.updateSubTotal();
 
@@ -249,5 +250,9 @@ export default class Cart {
 
         this.el.innerHTML = this.content.innerHTML;
         this.initModal();
+    }
+
+    get nbItems (): number {
+        return this.items.reduce( ( accumulator: number, item: any ): number => accumulator + item.quantity, 0 );
     }
 }
