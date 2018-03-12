@@ -18,8 +18,8 @@ import Cart from '../cart/cart';
 export default class BookPreview {
     data: any;
     el: any;
-    addButton: any;
-    cartLoader: any;
+    addButtons: any;
+    cartLoaders: any;
     addCartListener: any;
     seeCartListener: any;
     toastButton: any;
@@ -29,8 +29,8 @@ export default class BookPreview {
     constructor ( { isbn, cover, excerpt, price, synopsis, title }: { isbn: string, cover: string, excerpt: string, price: number, synopsis: Array<string>, title: string } ) {
         this.data = { isbn, cover, excerpt, price, synopsis, title };
         this.el = null;
-        this.addButton = null;
-        this.cartLoader = null;
+        this.addButtons = null;
+        this.cartLoaders = null;
         this.addCartListener = this.onAdd.bind( this );
         this.seeCartListener = this.onSeeCart.bind( this );
     }
@@ -47,9 +47,11 @@ export default class BookPreview {
                     price: Utils.toLocalCurrency( this.data.price )
                 } )
         );
-        this.cartLoader = this.el.querySelector( '.cart-loader' );
-        this.addButton = this.el.querySelector( '.cta-add-cart' );
-        this.addButton.addEventListener( 'click', this.addCartListener );
+        this.cartLoaders = this.el.querySelectorAll( '.cart-loader' );
+        this.addButtons = this.el.querySelectorAll( '.cta-add-cart' );
+        this.addButtons.forEach( ( btn: any ) => {
+            btn.addEventListener( 'click', this.addCartListener );
+        } );
         this.toggleLoaderCartButton( 'remove' );
 
         this.toastButton = $( '<button class="btn toast-action waves-effect grey lighten-5 black-text toast-see-cart">See your cart</button>' );
@@ -86,8 +88,12 @@ export default class BookPreview {
      * @param {string} action must be 'add' or 'remove'
      */
     toggleLoaderCartButton ( action: string ) {
-        this.cartLoader.classList[ action ]( 'active' );
-        this.addButton.classList[ action ]( 'hide' );
+        this.cartLoaders.forEach( ( loader: any ) => {
+            loader.classList[ action ]( 'active' );
+        } );
+        this.addButtons.forEach( ( btn: any ) => {
+            btn.classList[ action ]( 'hide' );
+        } );
     }
 
     /**
@@ -103,7 +109,9 @@ export default class BookPreview {
      *
      */
     destroy () {
-        this.addButton.removeEventListener( 'click', this.addCartListener );
+        this.addButtons.forEach( ( btn: any ) => {
+            btn.removeEventListener( 'click', this.addCartListener );
+        } );
         this.toastButton[ 0 ].removeEventListener( 'click', this.seeCartListener );
     }
 }
