@@ -59,7 +59,6 @@ export default class BookPreview {
         this.toastButton[ 0 ].addEventListener( 'click', this.seeCartListener );
         this.$toastContent = $( '<span>Your book has been added to your cart</span>' ).add( this.toastButton );
 
-
         this.badgesNb = this.el.querySelectorAll( '.nb-in-cart' );
 
         this.cart = new Cart(); // this is a singleton so don't panic!

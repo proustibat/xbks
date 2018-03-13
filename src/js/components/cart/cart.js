@@ -283,13 +283,13 @@ export default class Cart extends EventEmitter {
         return item ? item.quantity : 0;
     }
 
-
     async onEmptyClick ( e: Event ): Promise<void> {
         e.preventDefault();
 
         this.$modal.modal( 'close' );
 
         this.items = [];
+
         // Save items into the localStorage
         Lockr.set( 'cart-items', this.items );
 
