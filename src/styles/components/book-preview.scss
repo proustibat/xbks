@@ -92,8 +92,8 @@
 
   .cart-loader {
     display: none;
-    width: 24px;
     height: 24px;
+    width: 24px;
 
     &.active {
       display: block;
@@ -101,8 +101,8 @@
   }
 
   .nb-in-cart {
-    color: $primary-color-dark;
     border-radius: 2px;
+    color: $primary-color-dark;
     font-family: $system-font;
     margin: 0 1rem 0 0;
   }
