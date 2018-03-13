@@ -19,8 +19,10 @@ export default class BookPreview {
     data: any;
     el: any;
     addButtons: any;
+    removeButtons: any;
     cartLoaders: any;
     addCartListener: any;
+    removeItemListener: any;
     seeCartListener: any;
     toastButton: any;
     $toastContent: any;
@@ -31,9 +33,11 @@ export default class BookPreview {
         this.data = { isbn, cover, excerpt, price, synopsis, title };
         this.el = null;
         this.addButtons = null;
+        this.removeButtons = null;
         this.cartLoaders = null;
         this.addCartListener = this.onAdd.bind( this );
         this.seeCartListener = this.onSeeCart.bind( this );
+        this.removeItemListener = this.onRemoveItem.bind( this );
     }
 
     /**
@@ -49,20 +53,29 @@ export default class BookPreview {
                 } )
         );
         this.cartLoaders = this.el.querySelectorAll( '.cart-loader' );
+
+        // Add to cart buttons
         this.addButtons = this.el.querySelectorAll( '.cta-add-cart' );
         this.addButtons.forEach( ( btn: any ) => {
             btn.addEventListener( 'click', this.addCartListener );
         } );
+
+        // Remove from vart buttons
+        this.removeButtons = this.el.querySelectorAll( '.btn-remove-item' );
+        this.removeButtons.forEach( ( btn: any ) => {
+            btn.addEventListener( 'click', this.removeItemListener );
+        } );
+
         this.toggleLoaderCartButton( 'remove' );
 
         this.toastButton = $( '<button class="btn toast-action waves-effect grey lighten-5 black-text toast-see-cart">See your cart</button>' );
         this.toastButton[ 0 ].addEventListener( 'click', this.seeCartListener );
         this.$toastContent = $( '<span>Your book has been added to your cart</span>' ).add( this.toastButton );
-
+      
         this.badgesNb = this.el.querySelectorAll( '.nb-in-cart' );
 
         this.cart = new Cart(); // this is a singleton so don't panic!
-        this.cart.on( 'empty-cart',  this.updateBadgeItem.bind( this ) );
+        this.cart.on( 'update-cart',  this.updateBadgeItem.bind( this ) );
 
         this.updateBadgeItem();
 
@@ -97,7 +110,17 @@ export default class BookPreview {
      */
     updateBadgeItem() {
         this.badgesNb.forEach( ( badge: any ) => {
-            badge.innerHTML = this.cart.findNbForItem( this.data.isbn );
+            // Update content of badges
+            const nbItem = this.cart.findNbForItem( this.data.isbn );
+            badge.innerHTML = nbItem;
+
+            // Show or hide badges depending on items number
+            badge.classList[ nbItem === 0 ? 'add' : 'remove' ]( 'hide' );
+
+            // Show or hide remove button depending on items number
+            this.removeButtons.forEach( ( btn: any ) => {
+                btn.classList[ nbItem === 0 ? 'add' : 'remove' ]( 'hide' );
+            } );
         } );
     }
 
@@ -123,12 +146,20 @@ export default class BookPreview {
         this.cart.onOpenCart();
     }
 
+    onRemoveItem ( e: Event ) {
+        e.preventDefault();
+        this.cart.removeBook( this.data.isbn );
+    }
+
     /**
      *
      */
     destroy () {
         this.addButtons.forEach( ( btn: any ) => {
             btn.removeEventListener( 'click', this.addCartListener );
+        } );
+        this.removeButtons.forEach( ( btn: any ) => {
+            btn.removeEventListener( 'click', this.removeItemListener );
         } );
         this.toastButton[ 0 ].removeEventListener( 'click', this.seeCartListener );
     }

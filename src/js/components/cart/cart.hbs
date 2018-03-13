@@ -22,7 +22,10 @@
                     <td>{{this.title}}</td>
                     <td>{{this.price}}</td>
                     <td>{{this.quantity}}</td>
-                    <td>{{this.total}}</td>
+                    <td class="valign-wrapper">
+                        {{this.total}}
+                        <a href="#" class="primary btn-remove-item" data-isbn="{{this.isbn}}" title="Remove one item"><i class="tiny material-icons">remove_circle_outline</i></a>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
