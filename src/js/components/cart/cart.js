@@ -5,15 +5,15 @@ import Layout from '../../layout';
 import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
 import Lockr from 'lockr';
-import { default as $ } from 'jquery';
-import BookPreview from "../book-preview/book-preview"; // As Materialize-css requires jQuery (here use for Modal)
+import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for Modal)
+import EventEmitter from 'events';
 
 let instance = null;
 
 /**
  *
  */
-export default class Cart {
+export default class Cart extends EventEmitter {
     el: any;
     content: any;
     $modal: any;
@@ -28,6 +28,7 @@ export default class Cart {
     emptyListenener: Function;
 
     constructor (): Cart {
+        super();
         if ( !instance ) {
             instance = this;
         }
@@ -282,14 +283,17 @@ export default class Cart {
         return item ? item.quantity : 0;
     }
 
-    async onEmptyClick (): Promise<void> {
-        console.log( 'Cart.onEmptyClick' );
+
+    async onEmptyClick ( e: Event ): Promise<void> {
+        e.preventDefault();
 
         this.$modal.modal( 'close' );
 
         this.items = [];
         // Save items into the localStorage
         Lockr.set( 'cart-items', this.items );
+
+        this.emit( 'empty-cart' );
 
         await this.updateTotals();
 
