@@ -10,6 +10,7 @@ export default class Layout extends EventEmitter {
     loader: any;
     buttonsListener: any;
     menuButtons: any;
+    itemBadge: any;
 
     constructor (): Layout {
         super();
@@ -75,6 +76,16 @@ export default class Layout extends EventEmitter {
         // Clicks on items
         this.buttonsListener = this.onMenuItem.bind( this );
         this.menuButtons = document.querySelectorAll( '.nav-wrapper .btn-js' );
+
+
+        // Find cart badge
+        const btnCartIndex = Array.from( this.menuButtons ).findIndex( ( btn: any ): any => btn.getAttribute( 'data-role' ) === 'cart' );
+        this.menuButtons[ btnCartIndex ].childNodes.forEach( ( child: any ) => {
+            if ( child.classList && child.classList.contains( 'badge' ) ) {
+                this.itemBadge = child;
+            }
+        } );
+
         this.listenMenu();
     }
 
@@ -95,5 +106,9 @@ export default class Layout extends EventEmitter {
             this.emit( 'open-cart' );
             e.preventDefault();
         }
+    }
+
+    updateItems ( nb: number ) {
+        this.itemBadge.innerHTML = nb;
     }
 }

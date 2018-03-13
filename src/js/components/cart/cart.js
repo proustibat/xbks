@@ -5,7 +5,8 @@ import Layout from '../../layout';
 import Utils from '../../utils';
 import ApiPotier from '../../services/api-potier';
 import Lockr from 'lockr';
-import { default as $ } from 'jquery'; // As Materialize-css requires jQuery (here use for Modal)
+import { default as $ } from 'jquery';
+import BookPreview from "../book-preview/book-preview"; // As Materialize-css requires jQuery (here use for Modal)
 
 let instance = null;
 
@@ -16,13 +17,15 @@ export default class Cart {
     el: any;
     content: any;
     $modal: any;
-    layout: any;
+    layout: Layout;
     api: ApiPotier;
     items: any;
     discount: any;
     subTotal: any;
     totalOrder: any;
     offers: any;
+    btnEmpty: any;
+    emptyListenener: Function;
 
     constructor (): Cart {
         if ( !instance ) {
@@ -32,8 +35,9 @@ export default class Cart {
         this.el = null;
         this.content = null;
         this.$modal = null;
-        this.layout = null;
+        this.layout = new Layout();
         this.api = new ApiPotier();
+        this.emptyListenener = this.onEmptyClick.bind( this );
 
         return instance;
     }
@@ -54,7 +58,6 @@ export default class Cart {
         this.content = document.createElement( 'div' );
 
         // Listen to layout for click on cart menu item
-        this.layout = new Layout();
         this.layout.on( 'open-cart', this.onOpenCart.bind( this ) );
 
         // Retrieve items if existing from the localStorage
@@ -62,7 +65,9 @@ export default class Cart {
         const localStorageItems = Lockr.get( 'cart-items' );
         if ( localStorageItems ) {
             this.items = localStorageItems;
-            await this.updateTotals();
+            if( this.items.length > 0 ) {
+                await this.updateTotals();
+            }
         }
 
         this.render();
@@ -72,6 +77,7 @@ export default class Cart {
      *
      */
     initModal () {
+        this.btnEmpty && this.btnEmpty.removeEventListener( 'click', this.emptyListenener );
         this.$modal = $( '.modal-cart' );
         this.$modal.modal( {
             opacity: 0.9, // Opacity of modal background
@@ -82,6 +88,9 @@ export default class Cart {
             // Callback for Modal close
             // complete: this.onModalClose.bind( this )
         } );
+
+        this.btnEmpty = this.el.querySelector( '.btn-empty' );
+        this.btnEmpty && this.btnEmpty.addEventListener( 'click', this.emptyListenener );
     }
 
     /**
@@ -109,7 +118,6 @@ export default class Cart {
      */
     async addBook ( { isbn, title, price }: { isbn: string, title: string, price: number } ): Promise<void> {
         return new Promise( async ( resolve: Function ): Promise<void> => {
-            // this.layout.displayMainLoader();
 
             // Updates books list
             const index = this.items.findIndex( ( item: any ): boolean => item.isbn === isbn );
@@ -133,7 +141,7 @@ export default class Cart {
 
             await this.render();
 
-            // this.layout.removeMainLoader();
+
             resolve();
         } );
     }
@@ -144,6 +152,9 @@ export default class Cart {
      */
     async updateTotals (): Promise<void> {
         console.log( 'updateTotals' );
+        // Update items number on ui
+        this.layout.updateItems( this.nbItems );
+
         // Update total without reduction
         await this.updateSubTotal();
 
@@ -173,15 +184,17 @@ export default class Cart {
         // Get list of all isbn
         // ( if there is more than one time, we must add its isbn more than one time)
         const isbnList = [];
-        this.items.forEach( ( book: any ) => {
-            for ( let i = 0; i < book.quantity; i++ ) {
-                isbnList.push( book.isbn );
-            }
-        } );
+        if ( this.items.length > 0 ) {
+            this.items.forEach( ( book: any ) => {
+                for ( let i = 0; i < book.quantity; i++ ) {
+                    isbnList.push( book.isbn );
+                }
+            } );
 
-        await this.api.getOffers( isbnList )
-            .then( ( data: any ) => { this.offers = data; } )
-            .catch( ( error: any ) => { console.error( error ); } );
+            await this.api.getOffers( isbnList )
+                .then( ( data: any ) => { this.offers = data; } )
+                .catch( ( error: any ) => { console.error( error ); } );
+        }
     }
 
     /**
@@ -249,5 +262,39 @@ export default class Cart {
 
         this.el.innerHTML = this.content.innerHTML;
         this.initModal();
+    }
+
+    /**
+     *
+     * @returns {number}
+     */
+    get nbItems (): number {
+        return this.items.reduce( ( accumulator: number, item: any ): number => accumulator + item.quantity, 0 );
+    }
+
+    /**
+     *
+     * @param {string} isbn
+     * @returns {number}
+     */
+    findNbForItem( isbn: string ): number {
+        const item = this.items.find( ( item: any ): boolean => item.isbn === isbn );
+        return item ? item.quantity : 0;
+    }
+
+    async onEmptyClick (): Promise<void> {
+        console.log( 'Cart.onEmptyClick' );
+
+        this.$modal.modal( 'close' );
+
+        this.items = [];
+        // Save items into the localStorage
+        Lockr.set( 'cart-items', this.items );
+
+        await this.updateTotals();
+
+        await this.render();
+
+        this.$modal.modal( 'open' );
     }
 }

@@ -3,7 +3,10 @@
         <h1>Shopping Cart</h1>
 
         {{#if items.length}}
-            <h2>Order details</h2>
+            <h2 class="valign-wrapper">
+                <span>Order details</span>
+                <a href="#" class="btn-empty"><i class="material-icons right">remove_shopping_cart</i></a>
+            </h2>
             <table class="striped">
                 <thead>
                 <tr>
