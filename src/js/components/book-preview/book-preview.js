@@ -71,8 +71,7 @@ export default class BookPreview {
         this.toastButton = $( '<button class="btn toast-action waves-effect grey lighten-5 black-text toast-see-cart">See your cart</button>' );
         this.toastButton[ 0 ].addEventListener( 'click', this.seeCartListener );
         this.$toastContent = $( '<span>Your book has been added to your cart</span>' ).add( this.toastButton );
-
-
+      
         this.badgesNb = this.el.querySelectorAll( '.nb-in-cart' );
 
         this.cart = new Cart(); // this is a singleton so don't panic!
@@ -123,7 +122,6 @@ export default class BookPreview {
                 btn.classList[ nbItem === 0 ? 'add' : 'remove' ]( 'hide' );
             } );
         } );
-
     }
 
     /**

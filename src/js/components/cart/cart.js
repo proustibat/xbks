@@ -333,7 +333,6 @@ export default class Cart extends EventEmitter {
         return item ? item.quantity : 0;
     }
 
-
     /**
      *
      * @param e
