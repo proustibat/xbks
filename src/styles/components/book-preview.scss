@@ -74,11 +74,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    @media #{$large-and-up} {
+      overflow: hidden;
+      padding: 1rem 0.5rem;
+    }
   }
 
   .price {
     font-family: $system-font;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-transform: uppercase;
   }
 
@@ -105,6 +110,28 @@
     color: $primary-color-dark;
     font-family: $system-font;
     margin: 0 1rem 0 0;
+
+    @media #{$large-and-up} {
+      margin: 0 0.3rem 0 0;
+    }
+  }
+
+  .btn-remove-item {
+    // override Materialize rules with strong depth
+    // scss-lint:disable ImportantRule
+    margin-right: 1rem !important;
+    // scss-lint:enable ImportantRule
+
+    @media #{$large-and-up} {
+      // override Materialize rules with strong depth
+      // scss-lint:disable ImportantRule
+      margin-right: 0.3rem !important;
+      // scss-lint:enable ImportantRule
+    }
+
+    @media only screen and (min-width: #{$medium-screen-up}) and (max-width: 1065px) {
+      display: none;
+    }
   }
 }
 

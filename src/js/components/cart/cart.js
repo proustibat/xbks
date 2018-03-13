@@ -26,6 +26,8 @@ export default class Cart extends EventEmitter {
     offers: any;
     btnEmpty: any;
     emptyListenener: Function;
+    removeItemListener: Function;
+    btnsRemoveItem: any;
 
     constructor (): Cart {
         super();
@@ -39,6 +41,7 @@ export default class Cart extends EventEmitter {
         this.layout = new Layout();
         this.api = new ApiPotier();
         this.emptyListenener = this.onEmptyClick.bind( this );
+        this.removeItemListener = this.onRemoveItem.bind( this );
 
         return instance;
     }
@@ -84,10 +87,6 @@ export default class Cart extends EventEmitter {
             opacity: 0.9, // Opacity of modal background
             inDuration: 200, // Transition in duration
             outDuration: 200, // Transition out duration
-            // Callback for Modal open. Modal and trigger parameters available.
-            // ready: this.onModalOpen.bind( this ),
-            // Callback for Modal close
-            // complete: this.onModalClose.bind( this )
         } );
 
         this.btnEmpty = this.el.querySelector( '.btn-empty' );
@@ -100,15 +99,6 @@ export default class Cart extends EventEmitter {
     onOpenCart () {
         this.$modal.modal( 'open' );
     }
-
-    // onModalOpen () {
-    //     console.log( 'onModalOpen' );
-    // }
-    //
-    // onModalClose () {
-    //     console.log( 'onModalClose' );
-    // }
-
 
     /**
      *
@@ -135,13 +125,7 @@ export default class Cart extends EventEmitter {
                 } );
             }
 
-            // Save items into the localStorage
-            Lockr.set( 'cart-items', this.items );
-
-            await this.updateTotals();
-
-            await this.render();
-
+            await this.updateCartContent();
 
             resolve();
         } );
@@ -151,8 +135,20 @@ export default class Cart extends EventEmitter {
      *
      * @returns {Promise<void>}
      */
+    async updateCartContent (): Promise<void> {
+        // Save items into the localStorage
+        Lockr.set( 'cart-items', this.items );
+
+        await this.updateTotals();
+
+        await this.render();
+    }
+
+    /**
+     *
+     * @returns {Promise<void>}
+     */
     async updateTotals (): Promise<void> {
-        console.log( 'updateTotals' );
         // Update items number on ui
         this.layout.updateItems( this.nbItems );
 
@@ -171,7 +167,6 @@ export default class Cart extends EventEmitter {
      * @returns {Promise<void>}
      */
     async updateDiscount (): Promise<void> {
-        console.log( 'updateDiscount' );
         await this.findOffers();
         this.discount = this.findBestReduction();
     }
@@ -181,7 +176,6 @@ export default class Cart extends EventEmitter {
      * @returns {Promise<void>}
      */
     async findOffers (): Promise<void> {
-        console.log( 'findOffers' );
         // Get list of all isbn
         // ( if there is more than one time, we must add its isbn more than one time)
         const isbnList = [];
@@ -228,7 +222,6 @@ export default class Cart extends EventEmitter {
      *
      */
     updateSubTotal () {
-        console.log( 'updateSubTotal' );
         if ( this.items.length > 0 ) {
             // update total without reduction (subtotal)
             const reducedSum = this.items.reduce( ( acc: any, item: any ): any => {
@@ -249,6 +242,11 @@ export default class Cart extends EventEmitter {
      *
      */
     render () {
+        if ( this.btnsRemoveItem ) {
+            this.btnsRemoveItem.forEach( ( btn: any ) => {
+                btn.removeEventListener( 'click', this.removeItemListener );
+            } );
+        }
         this.content.innerHTML = template( {
             items: this.items.map( ( item: any ): any => {
                 return Object.assign( {}, item, {
@@ -263,6 +261,58 @@ export default class Cart extends EventEmitter {
 
         this.el.innerHTML = this.content.innerHTML;
         this.initModal();
+
+        this.btnsRemoveItem = this.el.querySelectorAll( '.btn-remove-item' );
+        this.btnsRemoveItem.forEach( ( btn: any ) => {
+            btn.addEventListener( 'click', this.removeItemListener );
+        } );
+    }
+
+    /**
+     *
+     * @param e
+     * @returns {Promise<void>}
+     */
+    async onRemoveItem( e: Event ): Promise<void> {
+        e.preventDefault();
+        const btn: any = e.currentTarget;
+        const isbn = btn.getAttribute( 'data-isbn' );
+
+
+        this.$modal.modal( 'close' );
+
+        await this.removeBook( isbn );
+
+        this.$modal.modal( 'open' );
+    }
+
+    /**
+     *
+     * @param isbn
+     * @returns {Promise<any>}
+     */
+    async removeBook( isbn: string ): Promise<void> {
+        return new Promise( async ( resolve: Function ): Promise<void> => {
+
+            const item = this.items.find( ( item: any ): boolean => item.isbn === isbn );
+
+            if ( item ) {
+                // Remove one item
+                item.quantity --;
+
+                // Remove item if needed
+                if ( item.quantity === 0 ) {
+                    this.items = this.items.filter( ( item: any ): boolean => item.isbn !== isbn );
+                }
+
+                await this.updateCartContent();
+
+                this.emit( 'update-cart' );
+            }
+
+
+            resolve();
+        } );
     }
 
     /**
@@ -284,20 +334,21 @@ export default class Cart extends EventEmitter {
     }
 
 
+    /**
+     *
+     * @param e
+     * @returns {Promise<void>}
+     */
     async onEmptyClick ( e: Event ): Promise<void> {
         e.preventDefault();
 
         this.$modal.modal( 'close' );
 
         this.items = [];
-        // Save items into the localStorage
-        Lockr.set( 'cart-items', this.items );
 
-        this.emit( 'empty-cart' );
+        await this.updateCartContent();
 
-        await this.updateTotals();
-
-        await this.render();
+        this.emit( 'update-cart' );
 
         this.$modal.modal( 'open' );
     }
