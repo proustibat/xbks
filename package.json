@@ -38,7 +38,7 @@
         "path": "0.12.7",
         "raw-loader": "0.5.1",
         "resolve-url-loader": "^2.3.0",
-        "sass-loader": "6.0.7",
+        "sass-loader": "7.1.0",
         "standard": "11.0.0",
         "style-loader": "0.20.3",
         "stylelint": "9.1.1",
