@@ -43,7 +43,7 @@
         "style-loader": "0.20.3",
         "stylelint": "9.1.1",
         "stylelint-config-standard": "18.2.0",
-        "stylelint-webpack-plugin": "0.10.3",
+        "stylelint-webpack-plugin": "1.1.1",
         "surge": "^0.20.1",
         "uglifyjs-webpack-plugin": "1.2.3",
         "underscore-template-loader": "1.0.0",
