@@ -34,7 +34,7 @@
         "handlebars": "^4.0.11",
         "handlebars-loader": "^1.6.0",
         "html-webpack-plugin": "3.0.6",
-        "node-sass": "^4.7.2",
+        "node-sass": "^4.14.0",
         "path": "0.12.7",
         "raw-loader": "0.5.1",
         "resolve-url-loader": "^2.3.0",
